@@ -1,6 +1,7 @@
 import React from 'react'
 import { useStateContext } from '../../contexts/ContextProvider';
 import { Navigate, Outlet } from 'react-router-dom';
+import MenuSuperior from './MenuSuperior';
 
 const DefaultLayout = () => {
 
@@ -14,6 +15,7 @@ const DefaultLayout = () => {
     <>
       <section>
         {/*Menu Superior*/}
+        <MenuSuperior/>
       </section>
       <main>
           {/*Contenido principal*/}
