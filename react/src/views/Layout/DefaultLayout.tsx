@@ -17,7 +17,7 @@ const DefaultLayout = () => {
         {/*Menu Superior*/}
         <MenuSuperior/>
       </section>
-      <main>
+      <main className= 'p-4'>
           {/*Contenido principal*/}
           <Outlet />
       </main>

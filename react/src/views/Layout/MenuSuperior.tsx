@@ -22,18 +22,18 @@ import { useStateContext } from '../../contexts/ContextProvider'
 
 const MenuSuperior = () => {
 
-    const {setToken, setUser, user} = useStateContext();
+    const { setToken, setUser, user } = useStateContext();
 
     const logout = (e: MouseEvent<SVGSVGElement>): void => {
         e.preventDefault();
         axiosClient.post("/logout")
-        .then(({ data }) => {
-            setToken(null);
-            setUser({});
-        })
-        .catch((error: any) => {
-            console.error('Error during logout:', error);
-        })
+            .then(({ data }) => {
+                setToken(null);
+                setUser({});
+            })
+            .catch((error: any) => {
+                console.error('Error during logout:', error);
+            })
     }
 
     return (
@@ -78,7 +78,9 @@ const MenuSuperior = () => {
                 </NavigationMenu>
             </div>
             <div className=' h-full w-[200px] absolute right-5 flex items-center  justify-center gap-3'>
-                <FontAwesomeIcon icon={faRightFromBracket} className='rotate-180 cursor-pointer' onClick={logout}/>
+                <div className=' px-2 py-1 rounded-md hover:bg-accent cursor-pointer ease-in duration-100'  onClick={logout} >
+                    <FontAwesomeIcon icon={faRightFromBracket} className='rotate-180'/>
+                </div>
                 <p>{user.name}</p>
                 <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
