@@ -30,7 +30,7 @@ const MenuSuperior = () => {
             opciones: [
                 {
                     titulo: "Consulta",
-                    descripcion: "A un usuario o toma"
+                    descripcion: "Mira los detalles de los usuarios, consulta por numero de toma o nombre de usuario"
                 },
                 {
                     titulo: "Contratos",
