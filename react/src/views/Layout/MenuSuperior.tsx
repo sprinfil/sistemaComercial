@@ -20,6 +20,7 @@ import axiosClient from '../../axios-client'
 import { useStateContext } from '../../contexts/ContextProvider'
 
 
+
 const MenuSuperior = () => {
 
     const { setToken, setUser, user } = useStateContext();
@@ -30,11 +31,13 @@ const MenuSuperior = () => {
             opciones: [
                 {
                     titulo: "Consulta",
-                    descripcion: "Mira los detalles de los usuarios, consulta por numero de toma o nombre de usuario"
+                    descripcion: "Mira los detalles de los usuarios, consulta por numero de toma o nombre de usuario",
+                    route:""
                 },
                 {
                     titulo: "Contratos",
-                    descripcion: "Genera un nuevo contrato"
+                    descripcion: "Genera un nuevo contrato",
+                    route:""
                 }
             ]
         },
@@ -43,7 +46,8 @@ const MenuSuperior = () => {
             opciones: [
                 {
                     titulo: "Ver poligonos",
-                    descripcion: "Administra las posiciones geograficas de las rutas y libros."
+                    descripcion: "Administra las posiciones geograficas de las rutas y libros.",
+                    route:""
                 },
             ]
         },
@@ -52,11 +56,13 @@ const MenuSuperior = () => {
             opciones: [
                 {
                     titulo: "Generar Ordenes de Trabajo",
-                    descripcion: "Genera ordenes para operadores de campo"
+                    descripcion: "Genera ordenes para operadores de campo",
+                    route:""
                 },
                 {
                     titulo: "Asignar Ordenes de Trabajo",
-                    descripcion: "Asigna Ordenes de trabajo para operadores de campo"
+                    descripcion: "Asigna Ordenes de trabajo para operadores de campo",
+                    route:""
                 },
             ]
         },
@@ -65,7 +71,18 @@ const MenuSuperior = () => {
             opciones: [
                 {
                     titulo: "Monitores",
-                    descripcion: "Haz consultas de cualquier entidad que necesites."
+                    descripcion: "Haz consultas de cualquier entidad que necesites.",
+                    route:""
+                },
+            ]
+        },
+        {
+            titulo: "Configuraciones",
+            opciones: [
+                {
+                    titulo: "Catálogos",
+                    descripcion: "Administra los catálogos del sistema.",
+                    route:"/catalogos"
                 },
             ]
         }
@@ -84,7 +101,7 @@ const MenuSuperior = () => {
     }
 
     return (
-        <div className='bg-background w-full h-[80px] border border-border shadow-sm relative flex items-center select-none'>
+        <div className='bg-background h-[10vh] border border-border shadow-sm relative flex items-center select-none'>
             {/*logo*/}
             <div className='h-full w-[75px] p-[10px]'>
                 <img src={Logo} alt="" className='w-full h-full' />
@@ -97,16 +114,18 @@ const MenuSuperior = () => {
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger>{opcion.titulo}</NavigationMenuTrigger>
                                 <NavigationMenuContent>
-                                    <ul className='px-[10px] py-[10px] w-[600px]'>
+                                    <ul className='px-[10px] py-[10px] w-[1000px]'>
                                         {opcion.opciones.map((opcion, index) => (
-                                            <li className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
-                                                <div className="mb-1 text-md font-medium">
-                                                    {opcion.titulo}
-                                                </div>
-                                                <p className="text-sm leading-tight text-muted-foreground">
-                                                    {opcion.descripcion}
-                                                </p>
-                                            </li>
+                                            <Link to={opcion.route} key={index}>
+                                                <li className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
+                                                    <div className="mb-1 text-md font-medium">
+                                                        {opcion.titulo}
+                                                    </div>
+                                                    <p className="text-sm leading-tight text-muted-foreground">
+                                                        {opcion.descripcion}
+                                                    </p>
+                                                </li>
+                                            </Link>
                                         ))}
                                     </ul>
                                 </NavigationMenuContent>

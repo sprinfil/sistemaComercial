@@ -17,7 +17,7 @@ const DefaultLayout = () => {
         {/*Menu Superior*/}
         <MenuSuperior/>
       </section>
-      <main className= 'p-4'>
+      <main className= 'p-4 overflow-auto'>
           {/*Contenido principal*/}
           <Outlet />
       </main>

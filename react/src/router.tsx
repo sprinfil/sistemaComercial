@@ -4,6 +4,7 @@ import DefaultLayout from './views/Layout/DefaultLayout';
 import GuestLayout from './views/Layout/GuestLayout';
 import NotFound from './views/Layout/NotFound';
 import DashBoard from './views/Layout/DashBoard';
+import Catalogos from './views/Configuraciones/Catalogos/Catalogos';
 
 const router = createBrowserRouter ([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter ([
             {
                 path:'/dashboard',
                 element: <DashBoard/>
+            },
+            {
+                path:'/catalogos',
+                element: <Catalogos/>
             },
         ]
     },
