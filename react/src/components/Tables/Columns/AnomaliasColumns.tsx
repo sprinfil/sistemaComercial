@@ -9,15 +9,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import IconButton from "../../ui/IconButton"
+import { TrashIcon, Pencil2Icon, PlusCircledIcon, EyeOpenIcon } from '@radix-ui/react-icons';
+import { useState } from "react"
+import { useStateContext } from "../../../contexts/ContextAnomalias"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Anomalia = {
-  id: string
+  id: number
   nombre: string
   descripcion: string
-  estado: "activo" | "inactivo"
+  estado: string
 }
+
 
 export const columns: ColumnDef<Anomalia>[] = [
   {
@@ -37,28 +42,15 @@ export const columns: ColumnDef<Anomalia>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original
- 
+      const anomalia = row.original
+      const { setAnomalia } = useStateContext();
+      
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div onClick={()=>setAnomalia(anomalia)}>
+          <IconButton>
+            <EyeOpenIcon />
+          </IconButton>
+        </div>
       )
     },
   },

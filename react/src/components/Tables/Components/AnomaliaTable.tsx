@@ -1,58 +1,38 @@
 import { useEffect, useState } from 'react';
 import { DataTable } from '../../../components/ui/DataTable';
-import {columns, Anomalia} from "../../../components/Tables/Columns/AnomaliasColumns.tsx";
-
-async function getData(): Promise<Anomalia[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      nombre: "Perro Bravo",
-      estado: "activo",
-      descripcion: "el operador no puede acceder al medidor por el perro",
-    },
-    {
-      id: "728ed52f",
-      nombre: "No Existe Medidor",
-      estado: "activo",
-      descripcion: "el operador no puede acceder al medidor por el perro",
-    },
-    {
-      id: "728ed52f",
-      nombre: "Sin acceso al medidor",
-      estado: "activo",
-      descripcion: "el operador no puede acceder al medidor por el perro",
-    },
-    {
-      id: "728ed52f",
-      nombre: "Medidor Opaco",
-      estado: "activo",
-      descripcion: "el operador no puede acceder al medidor por el perro",
-    },
-  ];
-}
+import { columns, Anomalia } from "../../../components/Tables/Columns/AnomaliasColumns.tsx";
+import axiosClient from '../../../axios-client.ts';
+import { useStateContext } from '../../../contexts/ContextAnomalias.tsx';
+import Loader from '../../ui/Loader.tsx';
 
 export default function AnomaliaTable() {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<Anomalia[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await getData();
-      setData(result);
-      setLoading(false);
-    }
-
-    fetchData();
+    getAnomalias();
   }, []);
 
+  const getAnomalias = async () => {
+    setLoading(true);
+    try {
+      const response = await axiosClient.get("/anomalia");
+      setLoading(false);
+      setData(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      setLoading(false);
+      console.error("Failed to fetch anomalias:", error);
+    }
+  };
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loader/></div>;
   }
 
   return (
     <div>
-        <DataTable columns={columns} data={data} sorter='nombre'/>
+      <DataTable columns={columns} data={data} sorter='nombre' />
     </div>
   );
 }

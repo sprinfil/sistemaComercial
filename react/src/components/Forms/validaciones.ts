@@ -13,4 +13,5 @@ export const loginSchema = z.object({
   export const anomaliaSchema = z.object({
     nombre: z.string().min(1, "El Nombre es requerido"),
     descripcion: z.string(),
+    estado:  z.string(),
   })
