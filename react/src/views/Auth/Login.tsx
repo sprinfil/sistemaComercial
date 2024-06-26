@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "../../components/ui/form.tsx";
 import { Input } from '../../components/ui/input.tsx';
-import { loginSchema } from '../../schema/index.ts';
+import { loginSchema } from '../../components/Forms/validaciones.ts';
 import { ModeToggle } from '../../components/ui/mode-toggle.tsx';
 import axiosClient from '../../axios-client.ts';
 import { useStateContext } from '../../contexts/ContextProvider.tsx';
