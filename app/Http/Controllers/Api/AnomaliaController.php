@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Anomalia;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\AnomaliaResource;
 use App\Http\Requests\StoreAnomaliaRequest;
 use App\Http\Requests\UpdateAnomaliaRequest;
-use App\Http\Resources\AnomaliaResource;
+use Illuminate\Http\Request;
+
+
+
 
 class AnomaliaController extends Controller
 {
@@ -16,7 +20,7 @@ class AnomaliaController extends Controller
     public function index()
     {
         return AnomaliaResource::collection(
-            Anomalia::all()
+            Anomalia::orderby("id", "desc")->get()
         );
     }
 
@@ -43,14 +47,20 @@ class AnomaliaController extends Controller
      */
     public function update(UpdateAnomaliaRequest $request, Anomalia $anomalia)
     {
-        //
+        $data = $request->validated();
+        $anomalia = Anomalia::find($request["id"]);
+        $anomalia->update($data);
+        $anomalia->save();
+        return new AnomaliaResource($anomalia);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Anomalia $anomalia)
+    public function destroy(Anomalia $anomalia, Request $request)
     {
-        //
+        $anomalia = Anomalia::find($request["id"]);
+        $anomalia->delete();
+        return response("",201);
     }
 }

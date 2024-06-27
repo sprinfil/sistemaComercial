@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, FC } from "react";
-
+import axiosClient from "../axios-client";
 // Define la interfaz para el estado del usuario y los métodos para actualizar el estado
 interface StateContextType {
     user: object;

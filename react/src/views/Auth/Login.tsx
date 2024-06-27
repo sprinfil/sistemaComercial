@@ -44,6 +44,7 @@ const Login = () => {
         setUser(data.user);
         setToken(data.token);
         setLoading(false);
+        localStorage.setItem("user_id",data.user.id);
       })
       .catch(err => {
         setLoading(false);
@@ -63,15 +64,18 @@ const Login = () => {
   return (
     <div className='h-[100vh] w-[100%] flex justify-center items-center'>
       <div className=' w-[400px] bg-background rounded-xl shadow-lg px-[30px] py-[20px] border border-border'>
-        <div className='w-full h-[40%] flex items-center justify-center '>
-          <img src={logo} alt="" className='w-[200px] h-[200px]' />
+        {/* 
+          <div className='w-full h-[20vh] flex items-center justify-center '>
+          <img src={logo} alt="" className='w-[150px] h-[150px]' />
         </div>
+        */}
+      
         {
           loading && <Loader />
         }
-       
-        <div className=' h-[60%] py-[40px]'>
-        <Error errors={errors}/>
+
+        <div className=' h-full py-[15px] overflow-auto px-1'>
+          <Error errors={errors} />
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
@@ -109,8 +113,10 @@ const Login = () => {
               <Button type="submit">Iniciar Sesion</Button>
             </form>
           </Form>
+          <div className="mt-[20px]">
+            <ModeToggle />
+          </div>
         </div>
-        <ModeToggle />
       </div>
     </div>
   )

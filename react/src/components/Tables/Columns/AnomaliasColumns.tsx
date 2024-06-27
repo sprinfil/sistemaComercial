@@ -13,6 +13,7 @@ import IconButton from "../../ui/IconButton"
 import { TrashIcon, Pencil2Icon, PlusCircledIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { useState } from "react"
 import { useStateContext } from "../../../contexts/ContextAnomalias"
+import { Checkbox } from "@/components/ui/checkbox"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -25,6 +26,28 @@ export type Anomalia = {
 
 
 export const columns: ColumnDef<Anomalia>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "nombre",
     header: ({ column }) => {
@@ -43,12 +66,12 @@ export const columns: ColumnDef<Anomalia>[] = [
     id: "actions",
     cell: ({ row }) => {
       const anomalia = row.original
-      const { setAnomalia } = useStateContext();
+      const { setAnomalia, setAccion } = useStateContext();
       
       return (
-        <div onClick={()=>setAnomalia(anomalia)}>
+        <div onClick={()=>{setAnomalia(anomalia);setAccion("ver")}}>
           <IconButton>
-            <EyeOpenIcon />
+            <EyeOpenIcon className="w-[20px] h-[20px]"/>
           </IconButton>
         </div>
       )

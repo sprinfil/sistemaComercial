@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { MouseEvent } from 'react';
 import Logo from '../../img/logo.png'
 import {
@@ -17,7 +17,7 @@ import { ModeToggle } from '../../components/ui/mode-toggle'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import axiosClient from '../../axios-client'
-import { useStateContext } from '../../contexts/ContextProvider'
+import { ContextProvider, useStateContext } from '../../contexts/ContextProvider';
 
 
 
@@ -100,10 +100,25 @@ const MenuSuperior = () => {
             })
     }
 
+    useEffect(() => {
+        const fetchUser = async () => {
+          try {
+            const response = await axiosClient.get(`/users/${localStorage.getItem("user_id")}`);
+            console.log(response.data);
+            setUser(response.data);
+          } catch (error) {
+            console.error("Failed to fetch user:", error);
+          }
+        };
+    
+        fetchUser();
+      }, []);
+
+
     return (
         <div className='bg-background h-[10vh] border border-border shadow-sm relative flex items-center select-none'>
             {/*logo*/}
-            <div className='h-full w-[75px] p-[10px]'>
+            <div className='h-full min-w-[65px] max-w-[65px] min-h-[65px] max-h-[65px] p-[10px]'>
                 <img src={Logo} alt="" className='w-full h-full' />
             </div >
             {/*menu de opciones*/}
