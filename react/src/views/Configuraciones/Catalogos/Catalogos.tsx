@@ -29,7 +29,7 @@ const Catalogos = () => {
     return (
         <div>
             <Tabs defaultValue="account" className="w-full">
-  
+
                 <TabsList>
                     {opciones.map((opcion, index) => (
                         <>

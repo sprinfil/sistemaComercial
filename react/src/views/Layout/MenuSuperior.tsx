@@ -37,7 +37,7 @@ const MenuSuperior = () => {
                 {
                     titulo: "Contratos",
                     descripcion: "Genera un nuevo contrato",
-                    route:""
+                    route:"/contratos"
                 }
             ]
         },

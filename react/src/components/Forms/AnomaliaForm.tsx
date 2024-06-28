@@ -71,7 +71,7 @@ const AnomaliaForm = () => {
                                 <FormControl>
                                     <Textarea
                                         placeholder="Descripcion de la anomalia"
-                                        
+
                                         {...field}
                                     />
                                 </FormControl>

@@ -11,6 +11,13 @@ export const loginSchema = z.object({
   //CATALOGOS
   //VALIDACIONES ANOMALIAS
   export const anomaliaSchema = z.object({
-    nombre: z.string().min(1, "El Nombre es requerido"),
+    nombre: z.string().min(1, "El Nombre o la Toma es requerido"),
     descripcion: z.string(),
   })
+
+
+  //buscarUsuario
+  export const buscarSchema = z.object({
+    consultar: z.string().min(1, "No olvides consultar"),
+    })
+
