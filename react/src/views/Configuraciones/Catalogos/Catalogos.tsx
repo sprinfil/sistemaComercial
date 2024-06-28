@@ -38,13 +38,13 @@ const Catalogos = () => {
         <TabsList>
           {opciones.map((opcion, index) => (
             <>
-              <TabsTrigger value={opcion.titulo}>{opcion.titulo}</TabsTrigger>
+              <TabsTrigger value={opcion.titulo} key={index}>{opcion.titulo}</TabsTrigger>
             </>
           ))}
         </TabsList>
         {opciones.map((opcion, index) => (
           <>
-            <TabsContent value={opcion.titulo}>{opcion.componente}</TabsContent>
+            <TabsContent value={opcion.titulo} key={index}>{opcion.componente}</TabsContent>
           </>
         ))}
       </Tabs>

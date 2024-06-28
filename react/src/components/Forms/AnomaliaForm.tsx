@@ -53,9 +53,13 @@ const AnomaliaForm = () => {
             axiosClient.post(`/anomalias`, values)
                 .then(() => {
                     setLoading(false);
-                    setAbrirInput(false);
-                    setAccion("crear");
                     setAnomalia({
+                        id: 0,
+                        nombre: "",
+                        descripcion: "ninguna",
+                        estado: "activo"
+                    });
+                    form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
@@ -72,15 +76,17 @@ const AnomaliaForm = () => {
                     }
                     setLoading(false);
                 })
+                console.log(abrirInput);
         }
         if (accion == "editar") {
             axiosClient.put(`/anomalias/${anomalia.id}`, values)
-                .then(() => {
+                .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
                     getAnomalias();
+                    setAnomalia(data.data);
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
@@ -129,6 +135,7 @@ const AnomaliaForm = () => {
                 descripcion: "ninguna",
                 estado: "activo"
             });
+            setAnomalia({});
             setAbrirInput(false);
         }
         if (accion == "crear") {
@@ -151,6 +158,7 @@ const AnomaliaForm = () => {
         if (accion == "ver") {
             setAbrirInput(false);
             setErrors({});
+            setAccion("");
             form.reset({
                 id: anomalia.id,
                 nombre: anomalia.nombre,
@@ -162,6 +170,7 @@ const AnomaliaForm = () => {
             setAbrirInput(true);
             setErrors({});
         }
+        console.log(accion);
     }, [accion]);
 
     return (
@@ -171,8 +180,7 @@ const AnomaliaForm = () => {
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
                         {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
-                        {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {anomalia.nombre}</p>}
-                        {accion == "ver" && <p className="text-muted-foreground text-[20px]">{anomalia.nombre}</p>}
+                        {anomalia.nombre != "" && <p className="text-muted-foreground text-[20px]">{anomalia.nombre}</p>}
                     </div>
                     <Modal
                         method={onDelete}

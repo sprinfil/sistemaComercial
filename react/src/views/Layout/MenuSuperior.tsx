@@ -124,19 +124,19 @@ const MenuSuperior = () => {
             {/*menu de opciones*/}
             <div className='h-full p-[10px] left-[100px] flex items-center '>
                 <NavigationMenu>
-                    <NavigationMenuList>
+                    <NavigationMenuList >
                         {opciones.map((opcion, key) => (
-                            <NavigationMenuItem>
-                                <NavigationMenuTrigger>{opcion.titulo}</NavigationMenuTrigger>
+                            <NavigationMenuItem key={key}>
+                                <NavigationMenuTrigger key={key}>{opcion.titulo}</NavigationMenuTrigger>
                                 <NavigationMenuContent>
-                                    <ul className='px-[10px] py-[10px] w-[1000px]'>
+                                    <ul className='px-[10px] py-[10px] w-[1000px]' key={key}>
                                         {opcion.opciones.map((opcion, index) => (
                                             <Link to={opcion.route} key={index}>
-                                                <li className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
-                                                    <div className="mb-1 text-md font-medium">
+                                                <li key={key} className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
+                                                    <div key={key} className="mb-1 text-md font-medium">
                                                         {opcion.titulo}
                                                     </div>
-                                                    <p className="text-sm leading-tight text-muted-foreground">
+                                                    <p key={key} className="text-sm leading-tight text-muted-foreground">
                                                         {opcion.descripcion}
                                                     </p>
                                                 </li>

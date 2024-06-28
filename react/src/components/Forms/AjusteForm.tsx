@@ -55,10 +55,14 @@ const AjusteForm = () => {
             axiosClient.post(`/Ajustes/create`, values)
                 .then(() => {
                     setLoading(false);
-                    setAbrirInput(false);
-                    setAccion("crear");
                     //SIEMPRE CHECAR LOS DATOS COINCIDAN CON EL MODELO
                     setAjuste({
+                        id: 0,
+                        nombre: "",
+                        descripcion: "ninguna",
+                        estado: "activo"
+                    });
+                    form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
@@ -78,12 +82,13 @@ const AjusteForm = () => {
         }
         if (accion == "editar") {
             axiosClient.put(`/Ajustes/update/${ajuste.id}`, values)
-                .then(() => {
+                .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
                     getAjustes();
+                    setAjuste(data.data);
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
@@ -130,6 +135,7 @@ const AjusteForm = () => {
                 descripcion: "ninguna",
                 estado: "activo"
             });
+            setAjuste({});
             setAbrirInput(false);
         }
         if (accion == "crear") {
@@ -152,6 +158,7 @@ const AjusteForm = () => {
         if (accion == "ver") {
             setAbrirInput(false);
             setErrors({});
+            setAccion("");
             form.reset({
                 id: ajuste.id,
                 nombre: ajuste.nombre,
@@ -163,6 +170,7 @@ const AjusteForm = () => {
             setAbrirInput(true);
             setErrors({});
         }
+        console.log(accion);
     }, [accion]);
 
     return (
@@ -171,9 +179,8 @@ const AjusteForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Ajuste</p>}
-                        {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {ajuste.nombre}</p>}
-                        {accion == "ver" && <p className="text-muted-foreground text-[20px]">{ajuste.nombre}</p>}
+                    {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Ajuste</p>}
+                    {ajuste.nombre != "" && <p className="text-muted-foreground text-[20px]">{ajuste.nombre}</p>}
                     </div>
                     <Modal
                         method={onDelete}
