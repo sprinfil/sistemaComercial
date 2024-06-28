@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { DataTable } from '../../../components/ui/DataTable';
-import { columns, Anomalia } from "../../../components/Tables/Columns/AnomaliasColumns.tsx";
+import { columns } from "../../../components/Tables/Columns/AjusteColumns.tsx";
 import axiosClient from '../../../axios-client.ts';
-import { useStateContext } from '../../../contexts/ContextAnomalias.tsx';
+import { useStateContext } from "../../../contexts/ContextAjuste.tsx"
 import Loader from '../../ui/Loader.tsx';
 import IconButton from '../../ui/IconButton.tsx';
 import { PlusCircledIcon } from '@radix-ui/react-icons';
 
-export default function AnomaliaTable() {
+export default function AjusteTable() {
 
-  const { anomalias, setAnomalias, loadingTable, setLoadingTable, setAccion } = useStateContext();
+  const { ajustes, setAjustes, loadingTable, setLoadingTable, setAccion } = useStateContext();
 
   useEffect(() => {
     getAnomalias();
@@ -18,9 +18,9 @@ export default function AnomaliaTable() {
   const getAnomalias = async () => {
     setLoadingTable(true);
     try {
-      const response = await axiosClient.get("/anomalias");
+      const response = await axiosClient.get("/Ajustes");
       setLoadingTable(false);
-      setAnomalias(response.data.data);
+      setAjustes(response.data.data);
       console.log(response.data.data);
     } catch (error) {
       setLoadingTable(false);
@@ -37,10 +37,10 @@ export default function AnomaliaTable() {
     <div>
       <div onClick={()=>{setAccion("crear")}}>
         <IconButton>
-          <div className='flex gap-2 items-center'> Agregar nueva anomalia<PlusCircledIcon className='w-[20px] h-[20px]' /></div>
+          <div className='flex gap-2 items-center'> Agregar nuevo Ajuste<PlusCircledIcon className='w-[20px] h-[20px]' /></div>
         </IconButton>
       </div>
-      <DataTable columns={columns} data={anomalias} sorter='nombre' />
+      <DataTable columns={columns} data={ajustes} sorter='nombre' />
     </div>
   );
 }
