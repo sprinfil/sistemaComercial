@@ -13,7 +13,7 @@ class AjusteSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('ajustes')->insert([
+        DB::table('ajuste_catalogos')->insert([
             [
                 'nombre' => 'Ajuste 1',
                 'descripcion' => 'Descripción del Ajuste 1',

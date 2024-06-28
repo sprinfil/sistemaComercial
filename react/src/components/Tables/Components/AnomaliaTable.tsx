@@ -18,7 +18,7 @@ export default function AnomaliaTable() {
   const getAnomalias = async () => {
     setLoadingTable(true);
     try {
-      const response = await axiosClient.get("/anomalias");
+      const response = await axiosClient.get("/AnomaliasCatalogo");
       setLoadingTable(false);
       setAnomalias(response.data.data);
       console.log(response.data.data);

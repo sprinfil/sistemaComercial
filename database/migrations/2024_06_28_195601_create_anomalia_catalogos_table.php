@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('anomalias', function (Blueprint $table) {
+        Schema::create('anomalia_catalogos', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
-            $table->text("descripcion")->nullable();
-            $table->enum('estado', ['activo', 'inactivo'])->default("activo");
+            $table->string("descripcion");
+            $table->enum('estado', ['activo','inactivo']);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anomalias');
+        Schema::dropIfExists('anomalia_catalogos');
     }
 };

@@ -50,7 +50,7 @@ const AnomaliaForm = () => {
     function onSubmit(values: z.infer<typeof anomaliaSchema>) {
         setLoading(true);
         if (accion == "crear") {
-            axiosClient.post(`/anomalias`, values)
+            axiosClient.post(`/AnomaliasCatalogo/create`, values)
                 .then(() => {
                     setLoading(false);
                     setAnomalia({
@@ -79,7 +79,7 @@ const AnomaliaForm = () => {
                 console.log(abrirInput);
         }
         if (accion == "editar") {
-            axiosClient.put(`/anomalias/${anomalia.id}`, values)
+            axiosClient.put(`/AnomaliasCatalogo/update/${anomalia.id}`, values)
                 .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
@@ -103,7 +103,7 @@ const AnomaliaForm = () => {
     const getAnomalias = async () => {
         setLoadingTable(true);
         try {
-            const response = await axiosClient.get("/anomalias");
+            const response = await axiosClient.get("/AnomaliasCatalogo");
             setLoadingTable(false);
             setAnomalias(response.data.data);
             console.log(response.data.data);
@@ -116,9 +116,7 @@ const AnomaliaForm = () => {
     //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.delete(`/anomalias/${anomalia.id}`, {
-                data: { id: anomalia.id }
-            });
+            await axiosClient.put(`/AnomaliasCatalogo/log_delete/${anomalia.id}`);
             getAnomalias();
             setAccion("eliminar");
         } catch (error) {

@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ajustes', function (Blueprint $table) {
+        Schema::create('ajuste_catalogos', function (Blueprint $table) {
             $table->id();
-            $table->string("nombre")->nullable();
-            $table->text("descripcion")->nullable();
-            $table->enum('estado', ['activo', 'inactivo'])->default("activo");
+            $table->string("nombre");
+            $table->string("descripcion");
+            $table->enum('estado', ['activo','inactivo']);
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ajustes');
+        Schema::dropIfExists('ajuste_catalogos');
     }
 };

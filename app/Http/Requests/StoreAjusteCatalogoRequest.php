@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAnomaliaRequest extends FormRequest
+class StoreAjusteCatalogoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class StoreAnomaliaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|max:55|unique:anomalias,nombre",
-            "descripcion"=>"nullable|string",
-            "estado"=>"nullable|string",
+            "nombre"=>"required|string|max:55|unique:ajuste_catalogos,nombre",
+            "descripcion"=>"nullable|string|max:55",
+            "estado"=>"nullable|string|max:55",
         ];
     }
 }

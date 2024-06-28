@@ -52,7 +52,7 @@ const AjusteForm = () => {
     function onSubmit(values: z.infer<typeof ajusteSchema>) {
         setLoading(true);
         if (accion == "crear") {
-            axiosClient.post(`/Ajustes/create`, values)
+            axiosClient.post(`/AjustesCatalogo/create`, values)
                 .then(() => {
                     setLoading(false);
                     //SIEMPRE CHECAR LOS DATOS COINCIDAN CON EL MODELO
@@ -81,7 +81,7 @@ const AjusteForm = () => {
                 })
         }
         if (accion == "editar") {
-            axiosClient.put(`/Ajustes/update/${ajuste.id}`, values)
+            axiosClient.put(`/AjustesCatalogo/update/${ajuste.id}`, values)
                 .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
@@ -105,7 +105,7 @@ const AjusteForm = () => {
     const getAjustes = async () => {
         setLoadingTable(true);
         try {
-            const response = await axiosClient.get("/Ajustes");
+            const response = await axiosClient.get("/AjustesCatalogo");
             setLoadingTable(false);
             setAjustes(response.data.data);
             console.log(response.data.data);
@@ -118,7 +118,7 @@ const AjusteForm = () => {
     //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.put(`/Ajustes/log_delete/${ajuste.id}`);
+            await axiosClient.put(`/AjustesCatalogo/log_delete/${ajuste.id}`);
             getAjustes();
             setAccion("eliminar");
         } catch (error) {

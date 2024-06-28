@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AjusteController;
-use App\Http\Controllers\Api\AnomaliaController;
+use App\Http\Controllers\Api\AjusteCatalagoController;
+use App\Http\Controllers\Api\AnomaliaCatalagoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -22,7 +22,13 @@ Route::middleware('auth:sanctum')->group(function () {
 //CATALOGOS----------------
 
 //ANOMALIAS
-Route::apiResource("/anomalias", AnomaliaController::class);
+Route::controller(AnomaliaCatalagoController::class)->group(function () {
+    Route::get("/AnomaliasCatalogo", "index");
+    Route::post("/AnomaliasCatalogo/create", "store");
+    Route::put("/AnomaliasCatalogo/update/{id}", "update");
+
+    Route::put("/AnomaliasCatalogo/log_delete/{id}", "destroy");
+});
 
 //USERS
 Route::controller(UserController::class)->group(function () {
@@ -30,11 +36,11 @@ Route::controller(UserController::class)->group(function () {
 });
 
 //AJUSTES
-Route::controller(AjusteController::class)->group(function () {
-    Route::get("/Ajustes", "index");
-    Route::post("/Ajustes/create", "store");
-    Route::put("/Ajustes/update/{id}", "update");
+Route::controller(AjusteCatalagoController::class)->group(function () {
+    Route::get("/AjustesCatalogo", "index");
+    Route::post("/AjustesCatalogo/create", "store");
+    Route::put("/AjustesCatalogo/update/{id}", "update");
 
     //log delete significa borrado logico
-    Route::put("/Ajustes/log_delete/{id}", "destroy");
+    Route::put("/AjustesCatalogo/log_delete/{id}", "destroy");
 });

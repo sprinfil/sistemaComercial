@@ -13,7 +13,7 @@ class AnomaliaSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('anomalias')->insert([
+        DB::table('anomalia_catalogos')->insert([
             [
                 'nombre' => 'Sin medidor',
                 'descripcion' => 'Descripción de la anomalia 1',

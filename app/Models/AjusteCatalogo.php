@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Anomalia extends Model
+class AjusteCatalogo extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         "nombre",
         "descripcion",
-        "estado",
+        "estado"
     ];
 }
