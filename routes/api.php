@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AjusteController;
 use App\Http\Controllers\Api\AnomaliaController;
+use App\Http\Controllers\Api\DescuentoCatalogoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -38,3 +39,14 @@ Route::controller(AjusteController::class)->group(function () {
     //log delete significa borrado logico
     Route::put("/Ajustes/log_delete/{id}", "destroy");
 });
+
+//DESCUENTOS
+Route::controller(DescuentoCatalogoController::class)->group(function () {
+    Route::get("/descuentos", "index");
+    Route::post("/descuentos/create", "store");
+    Route::put("/descuentos/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("/descuentos/log_delete/{id}", "destroy");
+});
+
