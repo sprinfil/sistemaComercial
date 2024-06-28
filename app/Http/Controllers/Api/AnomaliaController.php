@@ -20,7 +20,7 @@ class AnomaliaController extends Controller
     public function index()
     {
         return AnomaliaResource::collection(
-            Anomalia::orderby("id", "desc")->get()
+            Anomalia::orderby("id", "desc")->where("estado", "activo")->get()
         );
     }
 
@@ -60,7 +60,8 @@ class AnomaliaController extends Controller
     public function destroy(Anomalia $anomalia, Request $request)
     {
         $anomalia = Anomalia::find($request["id"]);
-        $anomalia->delete();
+        $anomalia->estado = "inactivo";
+        $anomalia->save();
         return response("",201);
     }
 }

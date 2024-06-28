@@ -14,54 +14,57 @@ import {
     FormMessage,
 } from "../../components/ui/form.tsx";
 import { Input } from '../../components/ui/input.tsx';
-import { anomaliaSchema } from './validaciones.ts';
+import { ajusteSchema } from './validaciones.ts';
 import { ModeToggle } from '../../components/ui/mode-toggle.tsx';
 import axiosClient from '../../axios-client.ts';
 import Loader from "../../components/ui/Loader.tsx";
 import Error from "../../components/ui/Error.tsx";
 import { Textarea } from "../ui/textarea.tsx";
-import { useStateContext } from "../../contexts/ContextAnomalias.tsx";
+
 import { useEffect } from "react";
 import { TrashIcon, Pencil2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
 
+import { useStateContext } from "../../contexts/ContextAjuste.tsx";
 
-const AnomaliaForm = () => {
-    const { anomalia, setAnomalia, loadingTable, setLoadingTable, setAnomalias, setAccion, accion } = useStateContext();
+
+const AjusteForm = () => {
+    const { ajuste, setAjuste, loadingTable, setLoadingTable, setAjustes, setAccion, accion } = useStateContext();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
 
 
-    const form = useForm<z.infer<typeof anomaliaSchema>>({
-        resolver: zodResolver(anomaliaSchema),
+    const form = useForm<z.infer<typeof ajusteSchema>>({
+        resolver: zodResolver(ajusteSchema),
         defaultValues: {
-            id: anomalia.id,
-            nombre: anomalia.nombre,
-            descripcion: anomalia.descripcion,
-            estado: anomalia.estado,
+            id: ajuste.id,
+            nombre: ajuste.nombre,
+            descripcion: ajuste.descripcion,
+            estado: ajuste.estado,
         },
     })
 
 
 
-    function onSubmit(values: z.infer<typeof anomaliaSchema>) {
+    function onSubmit(values: z.infer<typeof ajusteSchema>) {
         setLoading(true);
         if (accion == "crear") {
-            axiosClient.post(`/anomalias`, values)
+            axiosClient.post(`/Ajustes/create`, values)
                 .then(() => {
                     setLoading(false);
                     setAbrirInput(false);
                     setAccion("crear");
-                    setAnomalia({
+                    //SIEMPRE CHECAR LOS DATOS COINCIDAN CON EL MODELO
+                    setAjuste({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
                         estado: "activo"
                     });
-                    getAnomalias();
+                    getAjustes();
                     console.log(values);
                     //setNotification("usuario creado");
                 })
@@ -74,13 +77,13 @@ const AnomaliaForm = () => {
                 })
         }
         if (accion == "editar") {
-            axiosClient.put(`/anomalias/${anomalia.id}`, values)
+            axiosClient.put(`/Ajustes/update/${ajuste.id}`, values)
                 .then(() => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getAnomalias();
+                    getAjustes();
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
@@ -94,12 +97,12 @@ const AnomaliaForm = () => {
     }
 
     //con este metodo obtienes las anomalias de la bd
-    const getAnomalias = async () => {
+    const getAjustes = async () => {
         setLoadingTable(true);
         try {
-            const response = await axiosClient.get("/anomalias");
+            const response = await axiosClient.get("/Ajustes");
             setLoadingTable(false);
-            setAnomalias(response.data.data);
+            setAjustes(response.data.data);
             console.log(response.data.data);
         } catch (error) {
             setLoadingTable(false);
@@ -110,13 +113,11 @@ const AnomaliaForm = () => {
     //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.delete(`/anomalias/${anomalia.id}`, {
-                data: { id: anomalia.id }
-            });
-            getAnomalias();
+            await axiosClient.put(`/Ajustes/log_delete/${ajuste.id}`);
+            getAjustes();
             setAccion("eliminar");
         } catch (error) {
-            console.error("Failed to delete anomalia:", error);
+            console.error("Failed to delete ajuste:", error);
         }
     };
 
@@ -141,7 +142,7 @@ const AnomaliaForm = () => {
                 descripcion: "ninguna",
                 estado: "activo"
             });
-            setAnomalia({
+            setAjuste({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
@@ -152,10 +153,10 @@ const AnomaliaForm = () => {
             setAbrirInput(false);
             setErrors({});
             form.reset({
-                id: anomalia.id,
-                nombre: anomalia.nombre,
-                descripcion: anomalia.descripcion,
-                estado: anomalia.estado
+                id: ajuste.id,
+                nombre: ajuste.nombre,
+                descripcion: ajuste.descripcion,
+                estado: ajuste.estado
             });
         }
         if (accion == "editar") {
@@ -170,9 +171,9 @@ const AnomaliaForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
-                        {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {anomalia.nombre}</p>}
-                        {accion == "ver" && <p className="text-muted-foreground text-[20px]">{anomalia.nombre}</p>}
+                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Ajuste</p>}
+                        {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {ajuste.nombre}</p>}
+                        {accion == "ver" && <p className="text-muted-foreground text-[20px]">{ajuste.nombre}</p>}
                     </div>
                     <Modal
                         method={onDelete}
@@ -223,7 +224,7 @@ const AnomaliaForm = () => {
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Agrega una pequeña descripción.
+                                        Agregar una breve descripción.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -241,7 +242,7 @@ const AnomaliaForm = () => {
                                             placeholder={"Estado"}
                                             form={form}
                                             name={"estado"}
-                                            currentValue={anomalia.estado} />
+                                            currentValue={ajuste.estado} />
                                     </FormControl>
                                     <FormDescription>
                                         El estado de la anomalia
@@ -261,4 +262,4 @@ const AnomaliaForm = () => {
     )
 }
 
-export default AnomaliaForm
+export default AjusteForm

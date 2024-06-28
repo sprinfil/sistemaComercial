@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
          ]);
 
          $this->call(AnomaliaSeeder::class);
+         $this->call(AjusteSeeder::class);
     }
 }
