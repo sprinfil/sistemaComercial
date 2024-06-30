@@ -12,16 +12,16 @@ const DefaultLayout = () => {
   }
 
   return (
-    <>
+    <div className='h-[90vh]'>
       <section>
         {/*Menu Superior*/}
         <MenuSuperior/>
       </section>
-      <main className= 'p-4 overflow-auto'>
+      <main className= 'p-4 overflow-auto h-full'>
           {/*Contenido principal*/}
           <Outlet />
       </main>
-    </>
+    </div>
   )
 }
 

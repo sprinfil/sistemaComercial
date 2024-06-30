@@ -47,7 +47,7 @@ const MenuSuperior = () => {
                 {
                     titulo: "Ver poligonos",
                     descripcion: "Administra las posiciones geograficas de las rutas y libros.",
-                    route:""
+                    route:"/poligonos"
                 },
             ]
         },
