@@ -235,27 +235,6 @@ const AnomaliaForm = () => {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="estado"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Estado</FormLabel>
-                                    <FormControl>
-                                        <ComboBoxActivoInactivo
-                                            readOnly={!abrirInput}
-                                            placeholder={"Estado"}
-                                            form={form}
-                                            name={"estado"}
-                                            currentValue={anomalia.estado} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        El estado de la anomalia
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
                         {loading && <Loader />}
                         {abrirInput && <Button type="submit">Guardar</Button>}
 

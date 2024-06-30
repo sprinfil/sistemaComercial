@@ -18,7 +18,7 @@ export default function AjusteTable() {
   const getAnomalias = async () => {
     setLoadingTable(true);
     try {
-      const response = await axiosClient.get("/Ajustes");
+      const response = await axiosClient.get("/AjustesCatalogo");
       setLoadingTable(false);
       setAjustes(response.data.data);
       console.log(response.data.data);

@@ -102,3 +102,26 @@ Crear CRUDS
     probar endpoint
 
     ir a AjusteTable y modificar la endpoint para crear Ajuste
+
+    /*manejar input de combobox */
+    <FormField
+        control={form.control}
+        name="estado"
+        render={({ field }) => (
+            <FormItem>
+                <FormLabel>Estado</FormLabel>
+                <FormControl>
+                    <ComboBoxActivoInactivo
+                        readOnly={!abrirInput}
+                        placeholder={"Estado"}
+                        form={form}
+                        name={"estado"}
+                        currentValue={ajuste.estado} />
+                </FormControl>
+                <FormDescription>
+                    El estado de la anomalia
+                </FormDescription>
+                <FormMessage />
+            </FormItem>
+        )}
+    />

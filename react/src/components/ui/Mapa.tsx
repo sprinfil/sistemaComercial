@@ -37,18 +37,41 @@ export const Mapa = () => {
                 description: "Este es un polígono de ejemplo",
                 id: 1
             };
+
+            // Crear InfoWindow para el polígono
+            const info = (polygon as any).customInfo;
+            const infoWindowContent = `
+            <div class="p-3 mb-[20px] text-[10px] text-black">
+                    <p>${info.name}</p>
+                    <p>${info.description}</p>
+                    <p>${info.id}</p>
+            </div>
+        `;
+            const infoWindow = new google.maps.InfoWindow({
+                content: infoWindowContent,
+            });
+
+            // Posicionar el InfoWindow en el centro del polígono
+            const bounds = new google.maps.LatLngBounds();
+            polygonCoords.forEach(coord => bounds.extend(coord));
+            const center = bounds.getCenter();
+
+            infoWindow.setPosition(center);
+
+
+
             polygon.setMap(map);
             // Agregar evento de clic al polígono
             polygon.addListener("click", () => {
+                infoWindow.open(map);
                 const info = (polygon as any).customInfo;
-                alert(`Polígono clicado!\nNombre: ${info.name}\nDescripción: ${info.description}\nID: ${info.id}`);
             });
         });
     }, []);
 
     return (
         <div className='h-full'>
-            <div id="map" className='w-full h-full'></div>
+            <div id="map" className='w-full h-full rounded-md'></div>
         </div>
     )
 }

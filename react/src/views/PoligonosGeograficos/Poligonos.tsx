@@ -32,7 +32,7 @@ const Poligonos = () => {
                 </div>
             </div>
             {/*Contenedor del mapa*/}
-            <div className='bg-red-500 h-full w-[70%]'>
+            <div className=' h-full w-[70%]'>
                 <Mapa />
             </div>
         </div>

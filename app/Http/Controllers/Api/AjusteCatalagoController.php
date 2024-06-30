@@ -17,7 +17,7 @@ class AjusteCatalagoController extends Controller
     public function index()
     {
         return AjusteCatalogoResource::collection(
-            AjusteCatalogo::orderby("id", "desc")->where("estado","activo")->get()
+            AjusteCatalogo::all()
         );
     }
 
@@ -57,8 +57,6 @@ class AjusteCatalagoController extends Controller
     public function destroy(AjusteCatalogo $ajusteCatalogo, Request $request)
     {
         $ajuste = AjusteCatalogo::find($request["id"]);
-        $ajuste->estado = "inactivo";
-        $ajuste->save();
-        return response(new AjusteCatalogoResource($ajuste),201);
+        $ajuste->delete();
     }
 }

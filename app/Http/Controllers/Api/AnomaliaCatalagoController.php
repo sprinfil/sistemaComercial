@@ -17,7 +17,7 @@ class AnomaliaCatalagoController extends Controller
     public function index()
     {
         return AnomaliaCatalogoResource::collection(
-            AnomaliaCatalogo::orderby("id", "desc")->where("estado","activo")->get()
+            AnomaliaCatalogo::all()
         );
     }
 
@@ -57,8 +57,6 @@ class AnomaliaCatalagoController extends Controller
     public function destroy(AnomaliaCatalogo $anomaliaCatalogo, Request $request)
     {
         $anomalia = AnomaliaCatalogo::find($request["id"]);
-        $anomalia->estado = "inactivo";
-        $anomalia->save();
-        return response(new AnomaliaCatalogoResource($anomalia),201);
+        $anomalia->delete();
     }
 }
