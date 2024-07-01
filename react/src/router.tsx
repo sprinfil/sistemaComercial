@@ -6,6 +6,7 @@ import NotFound from './views/Layout/NotFound';
 import DashBoard from './views/Layout/DashBoard';
 import Catalogos from './views/Configuraciones/Catalogos/Catalogos';
 import Poligonos from './views/PoligonosGeograficos/Poligonos';
+import { Proximamente } from './views/Layout/Proximamente';
 
 const router = createBrowserRouter ([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter ([
             {
                 path:'/poligonos',
                 element: <Poligonos/>
+            },
+            {
+                path:'/proximamente',
+                element: <Proximamente/>
             },
         ]
     },

@@ -1,11 +1,11 @@
 import React from 'react'
-
+import EnDesarrollo from "../../img/en_desarrollo.svg";
 
 const DashBoard = () => {
 
   return (
     <div className=''>
-      Dashboard
+      <p>DashBoard</p>
     </div>
   )
 }

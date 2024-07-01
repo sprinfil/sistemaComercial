@@ -21,7 +21,6 @@ export type Constancia = {
   id: number
   nombre: string
   descripcion: string
-  estado: string
 }
 
 
