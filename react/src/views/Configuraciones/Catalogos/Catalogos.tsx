@@ -5,6 +5,7 @@ import Conceptos from './Conceptos'
 import Descuentos from './Descuentos'
 import Convenios from './Convenios'
 import Ajustes from './Ajustes'
+import Constancias from './Constancias'
 
 const Catalogos = () => {
 
@@ -29,6 +30,10 @@ const Catalogos = () => {
       titulo: "Ajustes",
       componente: <Ajustes />
     },
+    {
+        titulo: "Constancias",
+        componente: <Constancias />
+      },
   ]
 
   return (

@@ -30,3 +30,9 @@ export const descuentoSchema = z.object({
     descripcion: z.string(),
     estado: z.string(),
   })
+//VALIDACIONES CONTANCIAS
+export const constanciaSchema = z.object({
+    id: z.number(),
+    nombre: z.string().min(1, "El Nombre es requerido"),
+    descripcion: z.string(),
+  })

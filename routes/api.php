@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\DescuentoCatalogoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ConstanciaCatalogoController;
 use App\Http\Controllers\Api\UserController;
 
 //Route::post('/signup',[AuthController::class, "signup"]);
@@ -57,5 +58,15 @@ Route::controller(DescuentoCatalogoController::class)->group(function () {
 
     //log delete significa borrado logico
     Route::put("/descuentos/log_delete/{id}", "destroy");
+});
+
+//Constancia
+Route::controller(ConstanciaCatalogoController::class)->group(function () {
+    Route::get("/ConstanciasCatalogo", "index");
+    Route::post("/ConstanciasCatalogo/create", "store");
+    Route::put("/ConstanciasCatalogo/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("/ConstanciasCatalogo/log_delete/{id}", "destroy");
 });
 
