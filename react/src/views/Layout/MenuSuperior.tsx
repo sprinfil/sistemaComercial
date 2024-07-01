@@ -140,11 +140,7 @@ const MenuSuperior = () => {
                                 <NavigationMenuTrigger key={key}>{opcion.titulo}</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <div className='flex'>
-                                        <div className=' flex items-center justify-center w-[300px]'>
-                                            <div className='w-full h-[20vh] flex items-center justify-center '>
-                                                <img src={logo} alt="" className='w-[150px] h-[150px]' />
-                                            </div>
-                                        </div>
+                                     
                                         <ul className='px-[10px] py-[10px] w-[1000px]' key={key}>
                                             {opcion.opciones.map((opcion, index) => (
                                                 <Link to={opcion.route} key={index}>
