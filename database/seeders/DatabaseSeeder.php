@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AnomaliaSeeder;
+use Database\Seeders\ConceptoCatalogoSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
 
          $this->call(AnomaliaSeeder::class);
          $this->call(AjusteSeeder::class);
+         $this->call(ConceptoCatalogoSeeder::class);
+
     }
 }

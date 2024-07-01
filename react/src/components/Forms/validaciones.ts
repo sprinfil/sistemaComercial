@@ -25,3 +25,12 @@ export const ajusteSchema = z.object({
   descripcion: z.string(),
   estado: z.string(),
 })
+
+
+//VALIDACIONES AJUSTE
+export const conceptoSchema = z.object({
+    id: z.number(),
+    nombre: z.string().min(1, "El Nombre es requerido"),
+    descripcion: z.string(),
+    estado: z.string(),
+  })

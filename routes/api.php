@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\AjusteController;
-use App\Http\Controllers\Api\AnomaliaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AjusteController;
+use App\Http\Controllers\Api\AnomaliaController;
+use App\Http\Controllers\Api\ConceptoController;
 
 //Route::post('/signup',[AuthController::class, "signup"]);
 Route::post('/login', [AuthController::class, "login"]);
@@ -38,3 +39,15 @@ Route::controller(AjusteController::class)->group(function () {
     //log delete significa borrado logico
     Route::put("/Ajustes/log_delete/{id}", "destroy");
 });
+
+
+//CONCEPTOS
+Route::controller(ConceptoController::class)->group(function () {
+    Route::get("/Concepto", "index");
+    Route::post("/Concepto/create", "store");
+    Route::put("/Concepto/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("/Concepto/log_delete/{id}", "destroy");
+});
+
