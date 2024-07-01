@@ -1,17 +1,8 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import IconButton from "../../ui/IconButton"
-import { TrashIcon, Pencil2Icon, PlusCircledIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { useState } from "react"
+import {EyeOpenIcon } from '@radix-ui/react-icons';
 import { useStateContext } from "../../../contexts/ContextConcepto"
 import { Checkbox } from "@/components/ui/checkbox"
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AjusteController;
 use App\Http\Controllers\Api\AnomaliaController;
 use App\Http\Controllers\Api\ConceptoController;
+use App\Http\Controllers\Api\ConvenioController;
 
 //Route::post('/signup',[AuthController::class, "signup"]);
 Route::post('/login', [AuthController::class, "login"]);
@@ -49,5 +50,18 @@ Route::controller(ConceptoController::class)->group(function () {
 
     //log delete significa borrado logico
     Route::put("/Concepto/log_delete/{id}", "destroy");
+});
+
+
+
+
+//CONVENIOS
+Route::controller(ConvenioController::class)->group(function () {
+    Route::get("/Convenio", "index");
+    Route::post("/Convenio/create", "store");
+    Route::put("/Convenio/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("/Convenio/log_delete/{id}", "destroy");
 });
 

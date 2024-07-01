@@ -1,4 +1,8 @@
 import React from 'react'
+import ConvenioTable from '../../../components/Tables/Components/ConvenioTable'
+import ConvenioForm from '../../../components/Forms/ConvenioForm'
+import { ContextProvider } from "../../../contexts/ContextConvenio.tsx";
+
 
 const Convenios = () => {
   return (
