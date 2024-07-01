@@ -30,6 +30,7 @@ class AnomaliaController extends Controller
     public function store(StoreAnomaliaRequest $request)
     {
         $data = $request->validated();
+        return $data;
         $anomalia = Anomalia::create($data);
         return response(new AnomaliaResource($anomalia), 201);
     }

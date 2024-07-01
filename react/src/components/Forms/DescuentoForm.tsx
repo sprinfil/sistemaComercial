@@ -65,7 +65,7 @@ const DescuentoForm = () => {
                         descripcion: "ninguna",
                         estado: "activo"
                     });
-                    getDescuento();
+                    getDescuentos();
                     console.log(values);
                     //setNotification("usuario creado");
                 })
@@ -85,7 +85,7 @@ const DescuentoForm = () => {
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getDescuento();
+                    getDescuentos();
                     setDescuento(data.data);
                     //setNotification("usuario creado");
                 })
@@ -100,7 +100,7 @@ const DescuentoForm = () => {
     }
 
     //con este metodo obtienes las anomalias de la bd
-    const getDescuento = async () => {
+    const getDescuentos = async () => {
         setLoadingTable(true);
         try {
             const response = await axiosClient.get("/descuentos");
@@ -116,10 +116,10 @@ const DescuentoForm = () => {
     //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.delete(`/descuentos/log_delete/${descuento.id}`, {
+            await axiosClient.put(`/descuentos/log_delete/${descuento.id}`, {
                 data: { id: descuento.id }
             });
-            getDescuento();
+            getDescuentos();
             setAccion("eliminar");
         } catch (error) {
             console.error("Failed to delete anomalia:", error);

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\DescuentoCatalogo;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\DescuentoCatalogoResource;
 use App\Http\Requests\StoreDescuentoCatalogoRequest;
 use App\Http\Requests\UpdateDescuentoCatalogoRequest;
-use App\Http\Resources\DescuentoCatalogoResource;
 
 class DescuentoCatalogoController extends Controller
 {
@@ -25,7 +26,9 @@ class DescuentoCatalogoController extends Controller
      */
     public function store(StoreDescuentoCatalogoRequest $request)
     {
-
+        $data = $request->validated();
+        $descuentoCatalogo = DescuentoCatalogo::create($data);
+        return response(new DescuentoCatalogoResource($descuentoCatalogo), 201);
     }
 
     /**
@@ -41,14 +44,21 @@ class DescuentoCatalogoController extends Controller
      */
     public function update(UpdateDescuentoCatalogoRequest $request, DescuentoCatalogo $descuentoCatalogo)
     {
-        //
+        $data = $request->validated();
+        $descuentoCatalogo = DescuentoCatalogo::find($request["id"]);
+        $descuentoCatalogo->update($data);
+        $descuentoCatalogo->save();
+        return new DescuentoCatalogoResource($descuentoCatalogo);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DescuentoCatalogo $descuentoCatalogo)
+    public function destroy(DescuentoCatalogo $descuentoCatalogo, Request $request)
     {
-        //
+        $descuentoCatalogo = DescuentoCatalogo::find($request["id"]);
+        $descuentoCatalogo->estado = "inactivo";
+        $descuentoCatalogo->save();
+        return response("",201);
     }
 }
