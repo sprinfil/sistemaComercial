@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AnomaliaSeeder::class);
         $this->call(AjusteSeeder::class);
         $this->call(PermissionsSeeder::class);
+        $this->call(ConstanciaSeeder::class);
+        $this->call(GiroComercialSeeder::class);
     }
 }
