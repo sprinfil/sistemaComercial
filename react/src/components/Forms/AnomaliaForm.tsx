@@ -48,6 +48,7 @@ const AnomaliaForm = () => {
 
 
     function onSubmit(values: z.infer<typeof anomaliaSchema>) {
+        console.log("submit");
         setLoading(true);
         if (accion == "crear") {
             axiosClient.post(`/AnomaliasCatalogo/create`, values)

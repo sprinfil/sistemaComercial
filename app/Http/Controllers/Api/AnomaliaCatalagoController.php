@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Policies\AnomaliaCatalogoPolicy;
+use Illuminate\Http\Request;
 use App\Models\AnomaliaCatalogo;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\AnomaliaCatalogoResource;
 use App\Http\Requests\StoreAnomaliaCatalogoRequest;
 use App\Http\Requests\UpdateAnomaliaCatalogoRequest;
-use App\Http\Resources\AnomaliaCatalogoResource;
-use Illuminate\Http\Request;
 
 class AnomaliaCatalagoController extends Controller
 {
@@ -16,9 +18,12 @@ class AnomaliaCatalagoController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', AnomaliaCatalogo::class);
+
         return AnomaliaCatalogoResource::collection(
             AnomaliaCatalogo::all()
         );
+
     }
 
     /**

@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import axiosClient from '../../axios-client'
 import { ContextProvider, useStateContext } from '../../contexts/ContextProvider';
-
+import logo from "../../img/logo.png";
 
 
 const MenuSuperior = () => {
@@ -32,12 +32,12 @@ const MenuSuperior = () => {
                 {
                     titulo: "Consulta",
                     descripcion: "Mira los detalles de los usuarios, consulta por numero de toma o nombre de usuario",
-                    route:""
+                    route: ""
                 },
                 {
                     titulo: "Contratos",
                     descripcion: "Genera un nuevo contrato",
-                    route:""
+                    route: ""
                 }
             ]
         },
@@ -47,7 +47,7 @@ const MenuSuperior = () => {
                 {
                     titulo: "Ver poligonos",
                     descripcion: "Administra las posiciones geograficas de las rutas y libros.",
-                    route:"/poligonos"
+                    route: "/poligonos"
                 },
             ]
         },
@@ -57,12 +57,12 @@ const MenuSuperior = () => {
                 {
                     titulo: "Generar Ordenes de Trabajo",
                     descripcion: "Genera ordenes para operadores de campo",
-                    route:""
+                    route: ""
                 },
                 {
                     titulo: "Asignar Ordenes de Trabajo",
                     descripcion: "Asigna Ordenes de trabajo para operadores de campo",
-                    route:""
+                    route: ""
                 },
             ]
         },
@@ -72,7 +72,7 @@ const MenuSuperior = () => {
                 {
                     titulo: "Monitores",
                     descripcion: "Haz consultas de cualquier entidad que necesites.",
-                    route:""
+                    route: ""
                 },
             ]
         },
@@ -81,8 +81,18 @@ const MenuSuperior = () => {
             opciones: [
                 {
                     titulo: "Catálogos",
-                    descripcion: "Administra los catálogos del sistema.",
-                    route:"/catalogos"
+                    descripcion: "Gestiona los catálogos del sistema.",
+                    route: "/catalogos"
+                },
+                {
+                    titulo: "Operadores del Sistema",
+                    descripcion: "Gestiona Operadores de sistema, También sus roles y permisos.",
+                    route: ""
+                },
+                {
+                    titulo: "Roles",
+                    descripcion: "Gestiona los roles del sistema.",
+                    route: ""
                 },
             ]
         }
@@ -102,17 +112,17 @@ const MenuSuperior = () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-          try {
-            const response = await axiosClient.get(`/users/${localStorage.getItem("user_id")}`);
-            console.log(response.data);
-            setUser(response.data);
-          } catch (error) {
-            console.error("Failed to fetch user:", error);
-          }
+            try {
+                const response = await axiosClient.get(`/users/${localStorage.getItem("user_id")}`);
+                console.log(response.data);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Failed to fetch user:", error);
+            }
         };
-    
+
         fetchUser();
-      }, []);
+    }, []);
 
 
     return (
@@ -129,20 +139,27 @@ const MenuSuperior = () => {
                             <NavigationMenuItem key={key}>
                                 <NavigationMenuTrigger key={key}>{opcion.titulo}</NavigationMenuTrigger>
                                 <NavigationMenuContent>
-                                    <ul className='px-[10px] py-[10px] w-[1000px]' key={key}>
-                                        {opcion.opciones.map((opcion, index) => (
-                                            <Link to={opcion.route} key={index}>
-                                                <li key={key} className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
-                                                    <div key={key} className="mb-1 text-md font-medium">
-                                                        {opcion.titulo}
-                                                    </div>
-                                                    <p key={key} className="text-sm leading-tight text-muted-foreground">
-                                                        {opcion.descripcion}
-                                                    </p>
-                                                </li>
-                                            </Link>
-                                        ))}
-                                    </ul>
+                                    <div className='flex'>
+                                        <div className=' flex items-center justify-center w-[300px]'>
+                                            <div className='w-full h-[20vh] flex items-center justify-center '>
+                                                <img src={logo} alt="" className='w-[150px] h-[150px]' />
+                                            </div>
+                                        </div>
+                                        <ul className='px-[10px] py-[10px] w-[1000px]' key={key}>
+                                            {opcion.opciones.map((opcion, index) => (
+                                                <Link to={opcion.route} key={index}>
+                                                    <li key={key} className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
+                                                        <div key={key} className="mb-1 text-md font-medium">
+                                                            {opcion.titulo}
+                                                        </div>
+                                                        <p key={key} className="text-sm leading-tight text-muted-foreground">
+                                                            {opcion.descripcion}
+                                                        </p>
+                                                    </li>
+                                                </Link>
+                                            ))}
+                                        </ul>
+                                    </div>
                                 </NavigationMenuContent>
                             </NavigationMenuItem>
                         ))}

@@ -15,13 +15,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-         \App\Models\User::factory()->create([
-             'name' => 'admin',
-             'email' => 'test@example.com',
-             'password' => '$2y$12$doEXdsTesrTif4re8ES2huh9rWGaUkBCkSupshDOdp1EdXElPYAmq',
-         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'admin',
+            'email' => 'test@example.com',
+            'password' => '$2y$12$doEXdsTesrTif4re8ES2huh9rWGaUkBCkSupshDOdp1EdXElPYAmq',
+        ]);
 
-         $this->call(AnomaliaSeeder::class);
-         $this->call(AjusteSeeder::class);
+        $this->call(AnomaliaSeeder::class);
+        $this->call(AjusteSeeder::class);
+        $this->call(PermissionsSeeder::class);
     }
 }

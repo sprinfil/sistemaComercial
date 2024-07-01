@@ -125,3 +125,19 @@ Crear CRUDS
             </FormItem>
         )}
     />
+
+    //Crear permisos para modelos//
+    crear el policy: php artisan make:policy AnomaliaCatalogoPolicy
+    registralo en AuthServiceProvider.php
+
+
+    dar permisos
+
+    //usuarios
+    $user->givePermissionTo('Ver Anomalias');
+    $user->revokePermissionTo('Ver Anomalias');
+    
+    //roles
+    $role = Role::findByName('your-role-name', 'web');
+    $role->givePermissionTo('Ver Anomalias');
+    $role->revokePermissionTo($permission);

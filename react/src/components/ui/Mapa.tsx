@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Loader } from "@googlemaps/js-api-loader";
+import { TrashIcon, ContainerIcon, PlusIcon, Pencil2Icon, ReaderIcon } from '@radix-ui/react-icons';
+import IconButton from './IconButton';
 
 export const Mapa = () => {
 
@@ -41,7 +43,7 @@ export const Mapa = () => {
             // Crear InfoWindow para el polígono
             const info = (polygon as any).customInfo;
             const infoWindowContent = `
-            <div class="p-3 mb-[20px] text-[10px] text-black">
+            <div class="p-3 mb-[20px] text-[10px] text-black w-[400px]">
                     <p>${info.name}</p>
                     <p>${info.description}</p>
                     <p>${info.id}</p>

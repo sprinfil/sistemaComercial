@@ -17,30 +17,31 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
     Route::post("/logout", [AuthController::class, "logout"]);
+    //CATALOGOS----------------
+
+    //ANOMALIAS
+    Route::controller(AnomaliaCatalagoController::class)->group(function () {
+        Route::get("/AnomaliasCatalogo", "index");
+        Route::post("/AnomaliasCatalogo/create", "store");
+        Route::put("/AnomaliasCatalogo/update/{id}", "update");
+
+        Route::put("/AnomaliasCatalogo/log_delete/{id}", "destroy");
+    });
+
+    //USERS
+    Route::controller(UserController::class)->group(function () {
+        Route::get("/users/{id}", "show");
+    });
+
+    //AJUSTES
+    Route::controller(AjusteCatalagoController::class)->group(function () {
+        Route::get("/AjustesCatalogo", "index");
+        Route::post("/AjustesCatalogo/create", "store");
+        Route::put("/AjustesCatalogo/update/{id}", "update");
+
+        //log delete significa borrado logico
+        Route::put("/AjustesCatalogo/log_delete/{id}", "destroy");
+    });
+
 });
 
-//CATALOGOS----------------
-
-//ANOMALIAS
-Route::controller(AnomaliaCatalagoController::class)->group(function () {
-    Route::get("/AnomaliasCatalogo", "index");
-    Route::post("/AnomaliasCatalogo/create", "store");
-    Route::put("/AnomaliasCatalogo/update/{id}", "update");
-
-    Route::put("/AnomaliasCatalogo/log_delete/{id}", "destroy");
-});
-
-//USERS
-Route::controller(UserController::class)->group(function () {
-    Route::get("/users/{id}", "show");
-});
-
-//AJUSTES
-Route::controller(AjusteCatalagoController::class)->group(function () {
-    Route::get("/AjustesCatalogo", "index");
-    Route::post("/AjustesCatalogo/create", "store");
-    Route::put("/AjustesCatalogo/update/{id}", "update");
-
-    //log delete significa borrado logico
-    Route::put("/AjustesCatalogo/log_delete/{id}", "destroy");
-});
