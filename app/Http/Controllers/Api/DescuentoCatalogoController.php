@@ -17,7 +17,7 @@ class DescuentoCatalogoController extends Controller
     public function index()
     {
         return DescuentoCatalogoResource::collection(
-            DescuentoCatalogo::orderby("id", "desc")->where("estado", "activo")->get()
+            DescuentoCatalogo::all()
         );
     }
 
@@ -57,8 +57,7 @@ class DescuentoCatalogoController extends Controller
     public function destroy(DescuentoCatalogo $descuentoCatalogo, Request $request)
     {
         $descuentoCatalogo = DescuentoCatalogo::find($request["id"]);
-        $descuentoCatalogo->estado = "inactivo";
-        $descuentoCatalogo->save();
+        $descuentoCatalogo->delete();
         return response("",201);
     }
 }

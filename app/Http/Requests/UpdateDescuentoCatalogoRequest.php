@@ -22,7 +22,7 @@ class UpdateDescuentoCatalogoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|max:55|unique:anomalias,nombre",
+            "nombre"=>"required|string|max:55|unique:descuento_catalogos,nombre,".$this->id,
             "descripcion"=>"nullable|string",
             "estado"=>"nullable|string",
         ];

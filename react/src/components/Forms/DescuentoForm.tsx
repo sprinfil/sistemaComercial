@@ -41,7 +41,6 @@ const DescuentoForm = () => {
             id: descuento.id,
             nombre: descuento.nombre,
             descripcion: descuento.descripcion,
-            estado: descuento.estado,
         },
     })
 
@@ -57,13 +56,11 @@ const DescuentoForm = () => {
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     getDescuentos();
                     console.log(values);
@@ -76,7 +73,7 @@ const DescuentoForm = () => {
                     }
                     setLoading(false);
                 })
-                console.log(abrirInput);
+            console.log(abrirInput);
         }
         if (accion == "editar") {
             axiosClient.put(`/descuentos/update/${descuento.id}`, values)
@@ -133,7 +130,6 @@ const DescuentoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setDescuento({});
             setAbrirInput(false);
@@ -146,13 +142,11 @@ const DescuentoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setDescuento({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             })
         }
         if (accion == "ver") {
@@ -163,7 +157,6 @@ const DescuentoForm = () => {
                 id: descuento.id,
                 nombre: descuento.nombre,
                 descripcion: descuento.descripcion,
-                estado: descuento.estado
             });
         }
         if (accion == "editar") {
@@ -179,21 +172,25 @@ const DescuentoForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
+                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Descuento</p>}
                         {descuento.nombre != "" && <p className="text-muted-foreground text-[20px]">{descuento.nombre}</p>}
                     </div>
-                    <Modal
-                        method={onDelete}
-                        button={
-                            <IconButton>
-                                <TrashIcon className="w-[20px] h-[20px]" />
-                            </IconButton>}
-                    />
-                    <div onClick={() => setAccion("editar")}>
-                        <IconButton>
-                            <Pencil2Icon className="w-[20px] h-[20px]" />
-                        </IconButton>
-                    </div>
+                    {(descuento.nombre != null && descuento.nombre != "") &&
+                        <>
+                            <Modal
+                                method={onDelete}
+                                button={
+                                    <IconButton>
+                                        <TrashIcon className="w-[20px] h-[20px]" />
+                                    </IconButton>}
+                            />
+                            <div onClick={() => setAccion("editar")}>
+                                <IconButton>
+                                    <Pencil2Icon className="w-[20px] h-[20px]" />
+                                </IconButton>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">
@@ -208,10 +205,10 @@ const DescuentoForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre de la anomalia" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del descuento" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre de la anomalia.
+                                        El nombre del descuento.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -226,33 +223,12 @@ const DescuentoForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion de la anomalia"
+                                            placeholder="Descripcion del descuento"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
                                         Agrega una pequeña descripción.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="estado"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Estado</FormLabel>
-                                    <FormControl>
-                                        <ComboBoxActivoInactivo
-                                            readOnly={!abrirInput}
-                                            placeholder={"Estado"}
-                                            form={form}
-                                            name={"estado"}
-                                            currentValue={descuento.estado} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        El estado de la anomalia
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
