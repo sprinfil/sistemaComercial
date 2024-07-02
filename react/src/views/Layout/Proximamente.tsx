@@ -11,6 +11,7 @@ export const Proximamente = () => {
             */}
                 <iframe src="https://giphy.com/embed/WNiD1eQKkVjnAzbH6n" width="480" height="480" frameBorder="0" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/sticker-proximamente-xto-WNiD1eQKkVjnAzbH6n">via GIPHY</a></p>
             </div>
+            <div></div>
         </div>
     )
 }
