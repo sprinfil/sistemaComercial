@@ -1,28 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuLateral from '../../../components/ui/MenuLateral'
 import InformacionFiscal from './VistasDetalleUsuario/InformacionFiscal'
+import { useStateContext, ContextProvider } from '../../../contexts/ContextDetalleUsuario'
+import PantallaDetalleUsuario from './VistasDetalleUsuario/PantallaDetalleUsuario'
+import InformacionPensionado from './VistasDetalleUsuario/InformacionPensionado'
 
 const DetalleUsuario = () => {
 
+  const { pantalla } = useStateContext();
+
+  const [mostrarPantalla, setMostrarPantalla] = useState();
+
+  useEffect(()=>{
+    setMostrarPantalla(pantalla)
+    console.log(pantalla);
+  },[pantalla]
+)
+
   const options = [
     {
-      nombre : "Informacion Fiscal",
-      componente: <InformacionFiscal/>
+      titulo: "Principal",
+      opciones: [
+        {
+          nombre: "Fiscal",
+          pantalla:  <InformacionFiscal />
+        },
+        {
+          nombre: "Pensionado",
+          pantalla:  <InformacionPensionado />
+        },
+      ]
     }
   ]
 
   return (
     <>
-      <div>
+      <ContextProvider>
         <div>
-          <div>
-            <MenuLateral options={options}/>
-          </div>
-          <div>
-
+          <div className='flex gap-2'>
+            <div className='w-[300px]'>
+              <MenuLateral options={options} />
+            </div>
+            <div>
+              <PantallaDetalleUsuario/>
+            </div>
           </div>
         </div>
-      </div>
+      </ContextProvider>
+
     </>
 
   )
