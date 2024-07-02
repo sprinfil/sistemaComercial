@@ -12,9 +12,9 @@ import {
 
 import React from 'react'
 
-const MenuLateral = () => {
+const MenuLateral = ({options}) => {
   return (
-    <div>
+    <div className="border border-border rounded-md">
       <Command>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
