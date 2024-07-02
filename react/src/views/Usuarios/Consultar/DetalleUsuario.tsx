@@ -4,6 +4,7 @@ import InformacionFiscal from './VistasDetalleUsuario/InformacionFiscal'
 import { useStateContext, ContextProvider } from '../../../contexts/ContextDetalleUsuario'
 import PantallaDetalleUsuario from './VistasDetalleUsuario/PantallaDetalleUsuario'
 import InformacionPensionado from './VistasDetalleUsuario/InformacionPensionado'
+import InformaciónGeneral from './VistasDetalleUsuario/InformaciónGeneral'
 
 const DetalleUsuario = () => {
 
@@ -21,6 +22,10 @@ const DetalleUsuario = () => {
     {
       titulo: "Principal",
       opciones: [
+        {
+          nombre: "Información Principal",
+          pantalla:  <InformaciónGeneral />
+        },
         {
           nombre: "Fiscal",
           pantalla:  <InformacionFiscal />
