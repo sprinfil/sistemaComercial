@@ -32,12 +32,17 @@ const MenuSuperior = () => {
                 {
                     titulo: "Consulta",
                     descripcion: "Mira los detalles de los usuarios, consulta por numero de toma o nombre de usuario",
-                    route: ""
+                    route: "/proximamente"
                 },
                 {
                     titulo: "Contratos",
                     descripcion: "Genera un nuevo contrato",
-                    route: ""
+                    route: "/proximamente"
+                },
+                {
+                    titulo: "Crear Nuevo Usuario",
+                    descripcion: "Registra un nuevo ususario sin contrato.",
+                    route: "/proximamente"
                 }
             ]
         },
@@ -57,12 +62,12 @@ const MenuSuperior = () => {
                 {
                     titulo: "Generar Ordenes de Trabajo",
                     descripcion: "Genera ordenes para operadores de campo",
-                    route: ""
+                    route: "/proximamente"
                 },
                 {
                     titulo: "Asignar Ordenes de Trabajo",
                     descripcion: "Asigna Ordenes de trabajo para operadores de campo",
-                    route: ""
+                    route: "/proximamente"
                 },
             ]
         },
@@ -72,7 +77,7 @@ const MenuSuperior = () => {
                 {
                     titulo: "Monitores",
                     descripcion: "Haz consultas de cualquier entidad que necesites.",
-                    route: ""
+                    route: "/proximamente"
                 },
             ]
         },
@@ -87,12 +92,12 @@ const MenuSuperior = () => {
                 {
                     titulo: "Operadores del Sistema",
                     descripcion: "Gestiona Operadores de sistema, También sus roles y permisos.",
-                    route: ""
+                    route: "/proximamente"
                 },
                 {
                     titulo: "Roles",
                     descripcion: "Gestiona los roles del sistema.",
-                    route: ""
+                    route: "/proximamente"
                 },
             ]
         }
@@ -140,7 +145,7 @@ const MenuSuperior = () => {
                                 <NavigationMenuTrigger key={key}>{opcion.titulo}</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <div className='flex'>
-                                     
+
                                         <ul className='px-[10px] py-[10px] w-[1000px]' key={key}>
                                             {opcion.opciones.map((opcion, index) => (
                                                 <Link to={opcion.route} key={index}>

@@ -41,7 +41,6 @@ const AnomaliaForm = () => {
             id: anomalia.id,
             nombre: anomalia.nombre,
             descripcion: anomalia.descripcion,
-            estado: anomalia.estado,
         },
     })
 
@@ -58,13 +57,11 @@ const AnomaliaForm = () => {
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     getAnomalias();
                     console.log(values);
@@ -77,7 +74,7 @@ const AnomaliaForm = () => {
                     }
                     setLoading(false);
                 })
-                console.log(abrirInput);
+            console.log(abrirInput);
         }
         if (accion == "editar") {
             axiosClient.put(`/AnomaliasCatalogo/update/${anomalia.id}`, values)
@@ -181,18 +178,23 @@ const AnomaliaForm = () => {
                         {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
                         {anomalia.nombre != "" && <p className="text-muted-foreground text-[20px]">{anomalia.nombre}</p>}
                     </div>
-                    <Modal
-                        method={onDelete}
-                        button={
-                            <IconButton>
-                                <TrashIcon className="w-[20px] h-[20px]" />
-                            </IconButton>}
-                    />
-                    <div onClick={() => setAccion("editar")}>
-                        <IconButton>
-                            <Pencil2Icon className="w-[20px] h-[20px]" />
-                        </IconButton>
-                    </div>
+                    { (anomalia.nombre != null && anomalia.nombre != "") &&
+                        <>
+                            <Modal
+                                method={onDelete}
+                                button={
+                                    <IconButton>
+                                        <TrashIcon className="w-[20px] h-[20px]" />
+                                    </IconButton>}
+                            />
+                            <div onClick={() => setAccion("editar")}>
+                                <IconButton>
+                                    <Pencil2Icon className="w-[20px] h-[20px]" />
+                                </IconButton>
+                            </div>
+                        </>
+                    }
+
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">

@@ -5,6 +5,7 @@ import { ContextProvider } from './contexts/ContextProvider.tsx';
 import { RouterProvider } from 'react-router-dom'
 import router from './router.jsx';
 import { ThemeProvider } from './components/ui/theme-provider.tsx';
+import { Toaster } from "@/components/ui/toaster"
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -12,6 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <ContextProvider>
         <RouterProvider router={router} />
       </ContextProvider>
+      <Toaster />
     </ThemeProvider>
   </React.StrictMode>,
 )
