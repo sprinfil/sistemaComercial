@@ -45,7 +45,7 @@ export const columns: ColumnDef<Concepto>[] = [
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "desc")}
         >
           Nombre
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -59,11 +59,20 @@ export const columns: ColumnDef<Concepto>[] = [
       const concepto = row.original
       const { setConcepto, setAccion } = useStateContext();
 
+      // Manejar clic en toda la fila
+      const handleClick = () => {
+        setConcepto(concepto);
+        setAccion("ver");
+      };
+      console.log(concepto);
+
       return (
-        <div onClick={()=>{setConcepto(concepto);setAccion("ver")}}>
+        <div onClick={handleClick} style={{ cursor: "pointer" }}>
           <IconButton>
             <EyeOpenIcon className="w-[20px] h-[20px]"/>
           </IconButton>
+          <span>{concepto.nombre}</span>
+
         </div>
       )
     },

@@ -22,7 +22,7 @@ class StoreConceptoCatalogoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|max:55|unique:concepto_catalogos,nombre",
+            "nombre"=>"required|string|max:55",
             "descripcion"=>"nullable|string",
         ];
     }

@@ -28,6 +28,7 @@ import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
 import { useToast } from "@/components/ui/use-toast"; //IMPORTACIONES TOAST
 import { ToastAction } from "@/components/ui/toast"; //IMPORTACIONES TOAST
+import { Concepto } from "../Tables/Columns/ConceptosColumns.tsx";
 
 
 
@@ -39,6 +40,7 @@ const ConceptoForm = () => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
+    const [conceptoIdParaRestaurar, setConceptoIdParaRestaurar] = useState(null);
 
 
 
@@ -104,19 +106,29 @@ const ConceptoForm = () => {
         setLoading(true);
         if (accion == "crear") {
             axiosClient.post(`/Concepto/create`, values)
-                .then(() => {
-                    setLoading(false);
-                    setAbrirInput(false);
-                    setAccion("crear");
-                    setConcepto({
-                        id: 0,
-                        nombre: "",
-                        descripcion: "ninguna",
-                        estado: "activo"
-                    });
-                    getConcepto();
-                    console.log(values);
-                    successToastCreado();
+                .then((response) => {
+                    const data = response.data;
+                    if (data.restore) {
+                        setConceptoIdParaRestaurar(data.concepto_id);
+                        // Preguntar al usuario si desea restaurar el concepto
+                        if (window.confirm("El concepto ya existe pero ha sido eliminado. ¿Desea restaurarlo?")) {
+                            //restaurarConcepto({});
+                        } else {
+                            setLoading(false);
+                        }
+                    } else {
+                        setLoading(false);
+                        setAbrirInput(false);
+                        setAccion("crear");
+                        setConcepto({
+                            id: 0,
+                            nombre: "",
+                            descripcion: "ninguna",
+                            estado: "activo"
+                        });
+                        getConcepto();
+                        successToastCreado();
+                    }
                 })
                 .catch((err) => {
                     const response = err.response;
@@ -148,6 +160,27 @@ const ConceptoForm = () => {
                 })
         }
     }
+
+    const restaurarConcepto = () => {
+        axiosClient.put(`/Concepto/restaurar/${concepto_id}`)
+            .then(() => {
+                setLoading(false);
+                setAbrirInput(false);
+                setAccion("crear");
+                setConcepto({
+                    id: 0,
+                    nombre: "",
+                    descripcion: "ninguna",
+                    estado: "activo"
+                });
+                getConcepto();
+                successToastCreado();
+            })
+            .catch((err) => {
+                errorToast();
+                setLoading(false);
+            });
+    };
 
     //obtener conceptos
     const getConcepto = async () => {

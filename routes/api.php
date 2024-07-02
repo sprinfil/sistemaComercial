@@ -74,7 +74,7 @@ Route::controller(ConceptoController::class)->group(function () {
     Route::get("/Concepto", "index");
     Route::post("/Concepto/create", "store");
     Route::put("/Concepto/update/{id}", "update");
-
+    Route::put("/Concepto/restaurar/{id}", "restaurarConcepto");
     //log delete significa borrado logico
     Route::put("/Concepto/log_delete/{id}", "destroy");
 });
