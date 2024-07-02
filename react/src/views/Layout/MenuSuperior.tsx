@@ -38,6 +38,11 @@ const MenuSuperior = () => {
                     titulo: "Contratos",
                     descripcion: "Genera un nuevo contrato",
                     route: "/proximamente"
+                },
+                {
+                    titulo: "Crear Nuevo Usuario",
+                    descripcion: "Registra un nuevo ususario sin contrato.",
+                    route: "/proximamente"
                 }
             ]
         },
