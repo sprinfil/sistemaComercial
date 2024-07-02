@@ -96,7 +96,6 @@ const ConceptoForm = () => {
             id: concepto.id,
             nombre: concepto.nombre,
             descripcion: concepto.descripcion,
-            estado: concepto.estado,
         },
     })
 
@@ -141,13 +140,13 @@ const ConceptoForm = () => {
         }
         if (accion == "editar") {
             axiosClient.put(`/Concepto/update/${concepto.id}`, values)
-                .then(() => {
+                .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
                     getConcepto();
-                    //setNotification("usuario creado");
+                    setConcepto(data.data);
                     successToastEditado(); //toast editado
                 })
                 .catch((err) => {
@@ -218,6 +217,7 @@ const ConceptoForm = () => {
                 nombre: "",
                 descripcion: "ninguna",
             });
+            setConcepto({});
             setAbrirInput(false);
         }
         if (accion == "crear") {
@@ -228,25 +228,21 @@ const ConceptoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo",
-
             });
             setConcepto({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo",
-
-        })
+            })
         }
         if (accion == "ver") {
             setAbrirInput(false);
             setErrors({});
+            setAccion("");
             form.reset({
                 id: concepto.id,
                 nombre: concepto.nombre,
                 descripcion: concepto.descripcion,
-                estado: concepto.estado
             });
         }
         if (accion == "editar") {
@@ -262,22 +258,25 @@ const ConceptoForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Crear nuevo concepto</p>}
-                        {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {concepto.nombre}</p>}
-                        {accion == "ver" && <p className="text-muted-foreground text-[20px]">{concepto.nombre}</p>}
+                    {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
+                    {concepto.nombre != "" && <p className="text-muted-foreground text-[20px]">{concepto.nombre}</p>}
                     </div>
-                    <Modal
-                        method={onDelete}
-                        button={
-                            <IconButton>
-                                <TrashIcon className="w-[20px] h-[20px]" />
-                            </IconButton>}
-                    />
-                    <div onClick={() => setAccion("editar")}>
-                        <IconButton>
-                            <Pencil2Icon className="w-[20px] h-[20px]" />
-                        </IconButton>
-                    </div>
+                    { (concepto.nombre != null && concepto.nombre != "") &&
+                        <>
+                            <Modal
+                                method={onDelete}
+                                button={
+                                    <IconButton>
+                                        <TrashIcon className="w-[20px] h-[20px]" />
+                                    </IconButton>}
+                            />
+                            <div onClick={() => setAccion("editar")}>
+                                <IconButton>
+                                    <Pencil2Icon className="w-[20px] h-[20px]" />
+                                </IconButton>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">
@@ -292,7 +291,7 @@ const ConceptoForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input className = "w-[35vh] h-[5vh]" readOnly={!abrirInput} placeholder="Escribe el nombre del concepto" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del concepto" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                     Nombre del concepto.

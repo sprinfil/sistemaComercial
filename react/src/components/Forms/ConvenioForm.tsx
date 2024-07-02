@@ -20,7 +20,7 @@ import Error from "../../components/ui/Error.tsx";
 import { Textarea } from "../ui/textarea.tsx";
 import { useStateContext } from "../../contexts/ContextConvenio.tsx";
 import { useEffect } from "react";
-import { TrashIcon, Pencil2Icon} from '@radix-ui/react-icons';
+import { TrashIcon, Pencil2Icon } from '@radix-ui/react-icons';
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
@@ -96,40 +96,42 @@ const ConceptoForm = () => {
             axiosClient.post(`/Convenio/create`, values)
                 .then(() => {
                     setLoading(false);
-                    setAbrirInput(false);
-                    setAccion("crear");
                     setConvenio({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
-                    getConvenio();
+                    form.reset({
+                        id: 0,
+                        nombre: "",
+                        descripcion: "ninguna",
+                    });
+                    getConvenios();
                     console.log(values);
-                    successToastCreado(); //AQUI ESTA EL TOAST DE EXITO
+                    //setNotification("usuario creado");
                 })
                 .catch((err) => {
                     const response = err.response;
-                    errorToast(); //AQUI ESTA EL TOAST DE ERROR
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
                     setLoading(false);
                 })
+            console.log(abrirInput);
         }
         if (accion == "editar") {
             axiosClient.put(`/Convenio/update/${convenio.id}`, values)
-                .then(() => {
+                .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getConvenio();
-                    successToastEditado();
+                    getConvenios();
+                    setConvenio(data.data);
+                    //setNotification("usuario creado");
                 })
                 .catch((err) => {
                     const response = err.response;
-                    errorToast(); //AQUI ESTA EL TOAST DE ERROR
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -138,8 +140,8 @@ const ConceptoForm = () => {
         }
     }
 
-    //obtener convenio
-    const getConvenio = async () => {
+    //con este metodo obtienes las anomalias de la bd
+    const getConvenios = async () => {
         setLoadingTable(true);
         try {
             const response = await axiosClient.get("/Convenio");
@@ -148,35 +150,30 @@ const ConceptoForm = () => {
             console.log(response.data.data);
         } catch (error) {
             setLoadingTable(false);
-            errorToast(); //AQUI ESTA EL TOAST DE ERROR
-            console.error("Fallo la consulta del concepto:", error);
+            console.error("Failed to fetch anomalias:", error);
         }
     };
 
-    //elimianar convenios
+    //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.put(`/Convenio/log_delete/${convenio.id}`, {
-                data: { id: convenio.id }
-            });
-            getConvenio();
+            await axiosClient.put(`/Convenio/log_delete/${convenio.id}`);
+            getConvenios();
             setAccion("eliminar");
-            successToastEliminado();
         } catch (error) {
-            errorToast(); //AQUI ESTA EL TOAST DE ERROR
-            console.error("Fallo la eliminación:", error);
+            console.error("Failed to delete anomalia:", error);
         }
     };
 
-    //Actualizar el formulario
+    //este metodo es para cuando actualizar el formulario cuando limpias las variables de la anomalia
     useEffect(() => {
         if (accion == "eliminar") {
             form.reset({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
+            setConvenio({});
             setAbrirInput(false);
         }
         if (accion == "crear") {
@@ -187,23 +184,21 @@ const ConceptoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setConvenio({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             })
         }
         if (accion == "ver") {
             setAbrirInput(false);
             setErrors({});
+            setAccion("");
             form.reset({
                 id: convenio.id,
                 nombre: convenio.nombre,
                 descripcion: convenio.descripcion,
-                estado: convenio.estado
             });
         }
         if (accion == "editar") {
@@ -211,7 +206,6 @@ const ConceptoForm = () => {
             setErrors({});
         }
     }, [accion]);
-
     return (
 
         <div className="overflow-auto">
@@ -219,22 +213,26 @@ const ConceptoForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Crear nuevo convenio</p>}
-                        {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {convenio.nombre}</p>}
-                        {accion == "ver" && <p className="text-muted-foreground text-[20px]">{convenio.nombre}</p>}
+                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
+                        {convenio.nombre != "" && <p className="text-muted-foreground text-[20px]">{convenio.nombre}</p>}
                     </div>
-                    <Modal
-                        method={onDelete}
-                        button={
-                            <IconButton>
-                                <TrashIcon className="w-[20px] h-[20px]" />
-                            </IconButton>}
-                    />
-                    <div onClick={() => setAccion("editar")}>
-                        <IconButton>
-                            <Pencil2Icon className="w-[20px] h-[20px]" />
-                        </IconButton>
-                    </div>
+                    {(convenio.nombre != null && convenio.nombre != "") &&
+                        <>
+                            <Modal
+                                method={onDelete}
+                                button={
+                                    <IconButton>
+                                        <TrashIcon className="w-[20px] h-[20px]" />
+                                    </IconButton>}
+                            />
+                            <div onClick={() => setAccion("editar")}>
+                                <IconButton>
+                                    <Pencil2Icon className="w-[20px] h-[20px]" />
+                                </IconButton>
+                            </div>
+                        </>
+                    }
+
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">
@@ -249,10 +247,10 @@ const ConceptoForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input className = "w-[35vh] h-[5vh]" readOnly={!abrirInput} placeholder="Escribe el nombre del convenio" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del convenio" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                    Nombre del convenio.
+                                        El nombre de la anomalia.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -267,29 +265,24 @@ const ConceptoForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion del nuevo convenio"
+                                            placeholder="Descripcion del Conveio"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Agrega una breve descripción.
+                                        Agrega una pequeña descripción.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
-
                         {loading && <Loader />}
-
-                        {abrirInput &&
-                        <Button type="submit">
-                        Guardar
-                        </Button>
-                        }
+                        {abrirInput && <Button type="submit">Guardar</Button>}
 
                     </form>
                 </Form>
             </div>
+
         </div>
     )
 }

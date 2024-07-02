@@ -30,13 +30,18 @@ const MenuSuperior = () => {
             titulo: "Usuarios",
             opciones: [
                 {
-                    titulo: "Consulta",
+                    titulo: "Consulta Usuario",
                     descripcion: "Mira los detalles de los usuarios, consulta por numero de toma o nombre de usuario",
                     route: "/proximamente"
                 },
                 {
                     titulo: "Contratos",
                     descripcion: "Genera un nuevo contrato",
+                    route: "/proximamente"
+                },
+                {
+                    titulo: "Crear Nuevo Usuario",
+                    descripcion: "Registra un nuevo ususario sin contrato.",
                     route: "/proximamente"
                 }
             ]
