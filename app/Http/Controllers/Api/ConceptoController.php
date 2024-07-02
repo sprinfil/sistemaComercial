@@ -17,7 +17,7 @@ class ConceptoController extends Controller
     public function index()
     {
         return ConceptoResource::collection(
-            ConceptoCatalogo::orderby("id", "desc")->where("estado", "activo")->get()
+            ConceptoCatalogo::orderby("id", "desc")->get()
         );
     }
 
@@ -57,9 +57,15 @@ class ConceptoController extends Controller
      */
     public function destroy(ConceptoCatalogo $conceptoCatalogo,Request $request)
     {
-        $conceptoCatalogo = ConceptoCatalogo::find($request["id"]);
-        $conceptoCatalogo->estado = "inactivo";
-        $conceptoCatalogo->save();
-        return response("",201);
+        try
+        {
+            $conceptoCatalogo = ConceptoCatalogo::findOrFail($request->id);
+            $conceptoCatalogo->delete();
+            return response()->json(['message' => 'Eliminado correctamente'], 200);
+        }
+        catch (\Exception $e) {
+
+            return response()->json(['message' => 'Algo fallo'], 500);
+        }
     }
 }

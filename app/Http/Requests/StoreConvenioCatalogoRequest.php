@@ -24,7 +24,6 @@ class StoreConvenioCatalogoRequest extends FormRequest
         return [
             "nombre"=>"required|string|max:55|unique:convenio_catalogos,nombre",
             "descripcion"=>"nullable|string",
-            "estado"=>"nullable|string",
         ];
     }
 }

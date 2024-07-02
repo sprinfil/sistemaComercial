@@ -35,6 +35,14 @@ module.exports = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        success: {
+            DEFAULT: '#008f39', // Color verde principal
+            foreground: '#ffffff', // Color del texto en el toast
+            300: '#4CAF50',
+            50: '#E8F5E9',
+            400: '#388E3C',
+            600: '#1B5E20',
+          },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
@@ -73,5 +81,31 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addUtilities, theme }) {
+        const newUtilities = {
+          '.group-[.success]:border-success': {
+            borderColor: theme('colors.success.DEFAULT'),
+          },
+          '.group-[.success]:bg-success': {
+            backgroundColor: theme('colors.success.DEFAULT'),
+          },
+          '.group-[.success]:text-success-foreground': {
+            color: theme('colors.success.foreground'),
+          },
+          '.group-[.success]:hover:text-success-50': {
+            color: theme('colors.success.50'),
+          },
+          '.group-[.success]:focus:ring-success-400': {
+            ringColor: theme('colors.success.400'),
+          },
+          '.group-[.success]:focus:ring-offset-success-600': {
+            ringOffsetColor: theme('colors.success.600'),
+          },
+        };
+
+        addUtilities(newUtilities, ['responsive', 'hover', 'focus']);
+      },
+    ]
 }

@@ -20,12 +20,12 @@ import Error from "../../components/ui/Error.tsx";
 import { Textarea } from "../ui/textarea.tsx";
 import { useStateContext } from "../../contexts/ContextConvenio.tsx";
 import { useEffect } from "react";
-import { TrashIcon, Pencil2Icon, PlusCircledIcon, ColorWheelIcon } from '@radix-ui/react-icons';
+import { TrashIcon, Pencil2Icon} from '@radix-ui/react-icons';
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
-import { useToast } from "@/components/ui/use-toast";
-import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"; //IMPORTACIONES TOAST
+import { ToastAction } from "@/components/ui/toast"; //IMPORTACIONES TOAST
 
 
 
@@ -38,7 +38,6 @@ const ConceptoForm = () => {
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
 
-    const [mensaje, setMensaje] = useState(false);
 
 
     const form = useForm<z.infer<typeof conveniosSchema>>({
@@ -47,14 +46,51 @@ const ConceptoForm = () => {
             id: convenio.id,
             nombre: convenio.nombre,
             descripcion: convenio.descripcion,
-            estado: convenio.estado,
         },
     })
 
+    //#region SUCCESSTOAST
+    function successToastCreado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El convenio se ha creado correctamente",
+            variant: "success",
 
+        })
+    }
+    function successToastEditado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El convenio se ha editado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastEliminado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El convenio se ha eliminado correctamente",
+            variant: "success",
+
+        })
+    }
+    //#endregion
+
+
+    //Funcion de errores para el Toast
+    function errorToast() {
+
+        toast({
+            variant: "destructive",
+            title: "Oh, no. Error",
+            description: "Algo salió mal.",
+            action: <ToastAction altText="Try again">Intentar de nuevo</ToastAction>,
+        })
+
+
+    }
 
     function onSubmit(values: z.infer<typeof conveniosSchema>) {
-        setMensaje(true); //para llevar el control del toast
         setLoading(true);
         if (accion == "crear") {
             axiosClient.post(`/Convenio/create`, values)
@@ -68,12 +104,13 @@ const ConceptoForm = () => {
                         descripcion: "ninguna",
                         estado: "activo"
                     });
-                    getConcepto();
+                    getConvenio();
                     console.log(values);
-
+                    successToastCreado(); //AQUI ESTA EL TOAST DE EXITO
                 })
                 .catch((err) => {
                     const response = err.response;
+                    errorToast(); //AQUI ESTA EL TOAST DE ERROR
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -87,11 +124,12 @@ const ConceptoForm = () => {
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getConcepto();
-                    //setNotification("usuario creado");
+                    getConvenio();
+                    successToastEditado();
                 })
                 .catch((err) => {
                     const response = err.response;
+                    errorToast(); //AQUI ESTA EL TOAST DE ERROR
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -100,8 +138,8 @@ const ConceptoForm = () => {
         }
     }
 
-    //obtener conceptos
-    const getConcepto = async () => {
+    //obtener convenio
+    const getConvenio = async () => {
         setLoadingTable(true);
         try {
             const response = await axiosClient.get("/Convenio");
@@ -110,19 +148,22 @@ const ConceptoForm = () => {
             console.log(response.data.data);
         } catch (error) {
             setLoadingTable(false);
+            errorToast(); //AQUI ESTA EL TOAST DE ERROR
             console.error("Fallo la consulta del concepto:", error);
         }
     };
 
-    //elimianar conceptos
+    //elimianar convenios
     const onDelete = async () => {
         try {
             await axiosClient.put(`/Convenio/log_delete/${convenio.id}`, {
                 data: { id: convenio.id }
             });
-            getConcepto();
+            getConvenio();
             setAccion("eliminar");
+            successToastEliminado();
         } catch (error) {
+            errorToast(); //AQUI ESTA EL TOAST DE ERROR
             console.error("Fallo la eliminación:", error);
         }
     };
@@ -178,7 +219,7 @@ const ConceptoForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Crear nuevo concepto</p>}
+                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Crear nuevo convenio</p>}
                         {accion == "editar" && <p className="text-muted-foreground text-[20px]">Editar {convenio.nombre}</p>}
                         {accion == "ver" && <p className="text-muted-foreground text-[20px]">{convenio.nombre}</p>}
                     </div>
@@ -237,37 +278,11 @@ const ConceptoForm = () => {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="estado"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Estado</FormLabel>
-                                    <FormControl>
-                                        <ComboBoxActivoInactivo
-                                            readOnly={!abrirInput}
-                                            placeholder={"Estado"}
-                                            form={form}
-                                            name={"estado"}
-                                            currentValue={convenio.estado} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Estado del concepto
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+
                         {loading && <Loader />}
 
                         {abrirInput &&
-                        <Button type="submit"
-                        variant="outline"
-                        onClick={() => {toast({
-                        title: "¡EXITO!",
-                        description: "El concepto se ha creado correctamente",
-                        })
-                        }}>
+                        <Button type="submit">
                         Guardar
                         </Button>
                         }

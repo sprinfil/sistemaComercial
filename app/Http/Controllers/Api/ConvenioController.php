@@ -17,7 +17,7 @@ class ConvenioController extends Controller
     public function index()
     {
         return ConvenioResource::collection(
-            ConvenioCatalogo::orderby("id", "desc")->where("estado","activo")->get()
+            ConvenioCatalogo::orderby("id", "desc")->get()
         );
 
     }
@@ -57,10 +57,17 @@ class ConvenioController extends Controller
      */
     public function destroy(ConvenioCatalogo $convenioCatalogo, Request $request)
     {
+        try
+        {
 
-        $convenioCatalogo = ConvenioCatalogo::find($request["id"]);
-        $convenioCatalogo->estado = "inactivo";
-        $convenioCatalogo->save();
-        return response("",201);
+            $convenioCatalogo = ConvenioCatalogo::findOrFail($request->id);
+            $convenioCatalogo->delete();
+            return response()->json(['message' => 'Eliminado correctamente'], 200);
+        }
+        catch (\Exception $e) {
+
+            return response()->json(['message' => 'Algo fallo'], 500);
+        }
+
     }
 }

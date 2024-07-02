@@ -26,8 +26,8 @@ import { TrashIcon, Pencil2Icon, PlusCircledIcon, ColorWheelIcon } from '@radix-
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
-import { useToast } from "@/components/ui/use-toast";
-import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"; //IMPORTACIONES TOAST
+import { ToastAction } from "@/components/ui/toast"; //IMPORTACIONES TOAST
 
 
 
@@ -40,7 +40,52 @@ const ConceptoForm = () => {
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
 
-    const [mensaje, setMensaje] = useState(false);
+
+
+    //#region SUCCESSTOAST
+    function successToastCreado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El convenio se ha creado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastEditado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El convenio se ha editado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastEliminado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El convenio se ha eliminado correctamente",
+            variant: "success",
+
+        })
+    }
+    //#endregion
+
+
+    //Funcion de errores para el Toast
+    function errorToast() {
+
+        toast({
+            variant: "destructive",
+            title: "Oh, no. Error",
+            description: "Algo salió mal.",
+            action: <ToastAction altText="Try again">Intentar de nuevo</ToastAction>,
+        })
+
+
+    }
+
+
+
+
 
 
     const form = useForm<z.infer<typeof conceptoSchema>>({
@@ -56,7 +101,6 @@ const ConceptoForm = () => {
 
 
     function onSubmit(values: z.infer<typeof conceptoSchema>) {
-        setMensaje(true); //para llevar el control del toast
         setLoading(true);
         if (accion == "crear") {
             axiosClient.post(`/Concepto/create`, values)
@@ -72,10 +116,11 @@ const ConceptoForm = () => {
                     });
                     getConcepto();
                     console.log(values);
-
+                    successToastCreado();
                 })
                 .catch((err) => {
                     const response = err.response;
+                    errorToast(); //errorToast
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -91,9 +136,11 @@ const ConceptoForm = () => {
                     setAccion("");
                     getConcepto();
                     //setNotification("usuario creado");
+                    successToastEditado(); //toast editado
                 })
                 .catch((err) => {
                     const response = err.response;
+                    errorToast(); //AQUI ESTA EL TOAST DE ERROR
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -124,6 +171,7 @@ const ConceptoForm = () => {
             });
             getConcepto();
             setAccion("eliminar");
+            successToastEliminado(); //toast eliminado
         } catch (error) {
             console.error("Fallo la eliminación:", error);
         }
@@ -136,7 +184,6 @@ const ConceptoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setAbrirInput(false);
         }
@@ -148,14 +195,16 @@ const ConceptoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
+                estado: "activo",
+
             });
             setConcepto({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
-            })
+                estado: "activo",
+
+        })
         }
         if (accion == "ver") {
             setAbrirInput(false);
@@ -239,40 +288,11 @@ const ConceptoForm = () => {
                                 </FormItem>
                             )}
                         />
-                        <FormField
-                            control={form.control}
-                            name="estado"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Estado</FormLabel>
-                                    <FormControl>
-                                        <ComboBoxActivoInactivo
-                                            readOnly={!abrirInput}
-                                            placeholder={"Estado"}
-                                            form={form}
-                                            name={"estado"}
-                                            currentValue={concepto.estado} />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Estado del concepto
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+
                         {loading && <Loader />}
 
-                        {abrirInput &&
-                        <Button type="submit"
-                        variant="outline"
-                        onClick={() => {toast({
-                        title: "¡EXITO!",
-                        description: "El concepto se ha creado correctamente",
-                        })
-                        }}>
-                        Guardar
-                        </Button>
-                        }
+                        {abrirInput && <Button type="submit">Guardar</Button>}
+
 
                     </form>
                 </Form>
