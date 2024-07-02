@@ -41,14 +41,11 @@ const ConstanciaForm = () => {
             id: constancia.id,
             nombre: constancia.nombre,
             descripcion: constancia.descripcion,
-            estado: constancia.estado,
         },
     })
 
-
-
     function onSubmit(values: z.infer<typeof constanciaSchema>) {
-        console.log("submit");
+        console.log(values);
         setLoading(true);
         if (accion == "crear") {
             axiosClient.post(`/ConstanciasCatalogo/create`, values)
@@ -58,13 +55,11 @@ const ConstanciaForm = () => {
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     getConstancias();
                     console.log(values);
@@ -77,7 +72,7 @@ const ConstanciaForm = () => {
                     }
                     setLoading(false);
                 })
-                console.log(abrirInput);
+            console.log(abrirInput);
         }
         if (accion == "editar") {
             axiosClient.put(`/ConstanciasCatalogo/update/${constancia.id}`, values)
@@ -132,7 +127,6 @@ const ConstanciaForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setConstancia({});
             setAbrirInput(false);
@@ -145,13 +139,11 @@ const ConstanciaForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setConstancia({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             })
         }
         if (accion == "ver") {
@@ -162,7 +154,6 @@ const ConstanciaForm = () => {
                 id: constancia.id,
                 nombre: constancia.nombre,
                 descripcion: constancia.descripcion,
-                estado: constancia.estado
             });
         }
         if (accion == "editar") {
@@ -181,18 +172,22 @@ const ConstanciaForm = () => {
                         {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Constancia</p>}
                         {constancia.nombre != "" && <p className="text-muted-foreground text-[20px]">{constancia.nombre}</p>}
                     </div>
-                    <Modal
-                        method={onDelete}
-                        button={
-                            <IconButton>
-                                <TrashIcon className="w-[20px] h-[20px]" />
-                            </IconButton>}
-                    />
-                    <div onClick={() => setAccion("editar")}>
-                        <IconButton>
-                            <Pencil2Icon className="w-[20px] h-[20px]" />
-                        </IconButton>
-                    </div>
+                    {(constancia.nombre != null && constancia.nombre != "") &&
+                        <>
+                            <Modal
+                                method={onDelete}
+                                button={
+                                    <IconButton>
+                                        <TrashIcon className="w-[20px] h-[20px]" />
+                                    </IconButton>}
+                            />
+                            <div onClick={() => setAccion("editar")}>
+                                <IconButton>
+                                    <Pencil2Icon className="w-[20px] h-[20px]" />
+                                </IconButton>
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">

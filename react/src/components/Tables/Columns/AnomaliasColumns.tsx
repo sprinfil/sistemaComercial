@@ -21,7 +21,6 @@ export type Anomalia = {
   id: number
   nombre: string
   descripcion: string
-  estado: string
 }
 
 

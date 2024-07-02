@@ -5,6 +5,8 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\AnomaliaSeeder;
+use Database\Seeders\ConvenioSeeder;
+use Database\Seeders\ConceptoCatalogoSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,8 +23,10 @@ class DatabaseSeeder extends Seeder
             'password' => '$2y$12$doEXdsTesrTif4re8ES2huh9rWGaUkBCkSupshDOdp1EdXElPYAmq',
         ]);
 
-        $this->call(AnomaliaSeeder::class);
-        $this->call(AjusteSeeder::class);
+         $this->call(AnomaliaSeeder::class);
+         $this->call(AjusteSeeder::class);
+         $this->call(ConceptoCatalogoSeeder::class);
+         $this->call(ConvenioSeeder::class);
         $this->call(PermissionsSeeder::class);
         $this->call(ConstanciaSeeder::class);
         $this->call(GiroComercialSeeder::class);
