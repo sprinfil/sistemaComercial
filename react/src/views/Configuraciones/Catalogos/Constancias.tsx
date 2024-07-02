@@ -1,9 +1,9 @@
-import DescuentoForm from '../../../components/Forms/DescuentoForm.tsx';
-import DescuentoTable from '../../../components/Tables/Components/DescuentoTable.tsx';
-import { ContextProvider } from '../../../contexts/ContextDescuentos.tsx';
-import { useStateContext } from '../../../contexts/ContextDescuentos.tsx';
+import ConstanciaForm from '../../../components/Forms/ConstanciaForm.tsx';
+import ConstanciaTable from '../../../components/Tables/Components/ConstanciaTable.tsx';
+import { ContextProvider } from '../../../contexts/ContextConstancias.tsx';
+import { useStateContext } from '../../../contexts/ContextConstancias.tsx';
 
-export default function Descuentos() {
+export default function Constancias() {
 
   //ESTA ES LA VISTA PRINCIPAL DEL CATALOGO QUE CONTIENE LOS COMPONENTES DE LA TABLA Y
   //FORMULARIO DE ANOMALIAS
@@ -17,12 +17,12 @@ export default function Descuentos() {
 
           {/*Datatable*/}
           <div className='w-[35%] rounded-md border border-border p-4 overflow-auto h-[75vh]'>
-            <DescuentoTable />
+            <ConstanciaTable />
           </div>
 
           {/*Formulario*/}
           <div className='w-[65%] rounded-md border border-border h-[75vh] p-4 overflow-auto'>
-            <DescuentoForm />
+            <ConstanciaForm />
           </div>
 
         </div>

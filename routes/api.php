@@ -1,8 +1,14 @@
 <?php
 
+use App\Http\Controllers\Api\AjusteCatalagoController;
+use App\Http\Controllers\Api\AnomaliaCatalagoController;
+use App\Http\Controllers\Api\AjusteController;
+use App\Http\Controllers\Api\AnomaliaController;
+use App\Http\Controllers\Api\DescuentoCatalogoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ConstanciaCatalogoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AjusteController;
 use App\Http\Controllers\Api\AnomaliaController;
@@ -15,16 +21,37 @@ Route::post('/login', [AuthController::class, "login"]);
 //AQUI VAN TODAS LAS RUTAS
 Route::middleware('auth:sanctum')->group(function () {
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-    Route::post("/logout", [AuthController::class, "logout"]);
+
 });
+
+
+//DESCUENTOS
+Route::controller(DescuentoCatalogoController::class)->group(function () {
+    Route::get("/descuentos", "index");
+    Route::post("/descuentos/create", "store");
+    Route::put("/descuentos/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("/descuentos/log_delete/{id}", "destroy");
+});
+
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::post("/logout", [AuthController::class, "logout"]);
+
 
 //CATALOGOS----------------
 
 //ANOMALIAS
-Route::apiResource("/anomalias", AnomaliaController::class);
+Route::controller(AnomaliaCatalagoController::class)->group(function () {
+    Route::get("/AnomaliasCatalogo", "index");
+    Route::post("/AnomaliasCatalogo/create", "store");
+    Route::put("/AnomaliasCatalogo/update/{id}", "update");
+
+    Route::put("/AnomaliasCatalogo/log_delete/{id}", "destroy");
+});
 
 //USERS
 Route::controller(UserController::class)->group(function () {
@@ -32,13 +59,13 @@ Route::controller(UserController::class)->group(function () {
 });
 
 //AJUSTES
-Route::controller(AjusteController::class)->group(function () {
-    Route::get("/Ajustes", "index");
-    Route::post("/Ajustes/create", "store");
-    Route::put("/Ajustes/update/{id}", "update");
+Route::controller(AjusteCatalagoController::class)->group(function () {
+    Route::get("/AjustesCatalogo", "index");
+    Route::post("/AjustesCatalogo/create", "store");
+    Route::put("/AjustesCatalogo/update/{id}", "update");
 
     //log delete significa borrado logico
-    Route::put("/Ajustes/log_delete/{id}", "destroy");
+    Route::put("/AjustesCatalogo/log_delete/{id}", "destroy");
 });
 
 
@@ -63,5 +90,16 @@ Route::controller(ConvenioController::class)->group(function () {
 
     //log delete significa borrado logico
     Route::put("/Convenio/log_delete/{id}", "destroy");
+});
+
+
+//Constancia
+Route::controller(ConstanciaCatalogoController::class)->group(function () {
+    Route::get("/ConstanciasCatalogo", "index");
+    Route::post("/ConstanciasCatalogo/create", "store");
+    Route::put("/ConstanciasCatalogo/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("/ConstanciasCatalogo/log_delete/{id}", "destroy");
 });
 

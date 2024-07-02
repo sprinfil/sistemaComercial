@@ -1,4 +1,4 @@
-crear un proyecto react dentro de laravel 
+crear un proyecto react dentro de laravel
     npm create vite
     cd [nombre del proyecto]
     npm install
@@ -15,17 +15,17 @@ instalar scss en el proyecto
     npm install node-sass --save-dev
     npm install -D sass
 
-cambiar de idioma laravel 
+cambiar de idioma laravel
     composer require --dev laravel-lang/common
     php artisan lang:add es
     php artisan lang update
 
-instalar iconos para react 
-    npm i --save @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons        
+instalar iconos para react
+    npm i --save @fortawesome/fontawesome-svg-core  @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @fortawesome/free-brands-svg-icons
     agregar esos imports
     import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-    import {faBars} from "@fortawesome/free-solid-svg-icons";   
-    <FontAwesomeIcon icon={faBars}/>                                          
+    import {faBars} from "@fortawesome/free-solid-svg-icons";
+    <FontAwesomeIcon icon={faBars}/>
 
 hace un controlador
     php artisan make:controller Api/UserController --model=User --requests --resource --api
@@ -65,7 +65,7 @@ Crear CRUDS
      cambias el nombre de las demas variables
 
     hacer el endpoint para recuperar datos
-    
+
     hay que hacer el primero el back para probar la tabla
     hace un controlador
     php artisan make:controller Api/AjusteController --model=Ajuste --requests --resource --api
@@ -80,7 +80,7 @@ Crear CRUDS
     En AjusteTable.tsx modificar la endpoint para extraer los datos
     importar el contextProvider en AjusteTable.tsx
     importar las columnas en AjusteTable.tsx
-    cambiar el nombre de las variables en el ContextAjuste.tsx  
+    cambiar el nombre de las variables en el ContextAjuste.tsx
     cambiar el nombre de las variables en las importaciones del contexto en AjusteTable.tsx const { anomalias, setAnomalias, loadingTable, setLoadingTable, setAccion } = useStateContext();
 
     Cambiar importacion del AjusteColumns.tsx
@@ -102,3 +102,42 @@ Crear CRUDS
     probar endpoint
 
     ir a AjusteTable y modificar la endpoint para crear Ajuste
+
+    /*manejar input de combobox */
+    <FormField
+        control={form.control}
+        name="estado"
+        render={({ field }) => (
+            <FormItem>
+                <FormLabel>Estado</FormLabel>
+                <FormControl>
+                    <ComboBoxActivoInactivo
+                        readOnly={!abrirInput}
+                        placeholder={"Estado"}
+                        form={form}
+                        name={"estado"}
+                        currentValue={ajuste.estado} />
+                </FormControl>
+                <FormDescription>
+                    El estado de la anomalia
+                </FormDescription>
+                <FormMessage />
+            </FormItem>
+        )}
+    />
+
+    //Crear permisos para modelos//
+    crear el policy: php artisan make:policy AnomaliaCatalogoPolicy
+    registralo en AuthServiceProvider.php
+
+
+    dar permisos
+
+    //usuarios
+    $user->givePermissionTo('Ver Anomalias');
+    $user->revokePermissionTo('Ver Anomalias');
+
+    //roles
+    $role = Role::findByName('your-role-name', 'web');
+    $role->givePermissionTo('Ver Anomalias');
+    $role->revokePermissionTo($permission);

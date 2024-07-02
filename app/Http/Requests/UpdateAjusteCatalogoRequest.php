@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAnomaliaRequest extends FormRequest
+class UpdateAjusteCatalogoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class UpdateAnomaliaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|max:55|unique:anomalias,nombre,".$this->id,
-            "descripcion"=>"nullable|string",
-            "estado"=>"nullable|string",
+            "nombre"=>"required|string|max:55|unique:ajuste_catalogos,nombre,".$this->id,
+            "descripcion"=>"nullable|string|max:55",
+            "estado"=>"nullable|string|max:55",
         ];
     }
 }

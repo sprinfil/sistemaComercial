@@ -5,6 +5,7 @@ import Conceptos from './Conceptos'
 import Descuentos from './Descuentos'
 import Convenios from './Convenios'
 import Ajustes from './Ajustes'
+import Constancias from './Constancias'
 
 const Catalogos = () => {
 
@@ -29,6 +30,10 @@ const Catalogos = () => {
       titulo: "Ajustes",
       componente: <Ajustes />
     },
+    {
+        titulo: "Constancias",
+        componente: <Constancias />
+      },
   ]
 
   return (
@@ -38,13 +43,13 @@ const Catalogos = () => {
         <TabsList>
           {opciones.map((opcion, index) => (
             <>
-              <TabsTrigger value={opcion.titulo}>{opcion.titulo}</TabsTrigger>
+              <TabsTrigger value={opcion.titulo} key={index}>{opcion.titulo}</TabsTrigger>
             </>
           ))}
         </TabsList>
         {opciones.map((opcion, index) => (
           <>
-            <TabsContent value={opcion.titulo}>{opcion.componente}</TabsContent>
+            <TabsContent value={opcion.titulo} key={index}>{opcion.componente}</TabsContent>
           </>
         ))}
       </Tabs>

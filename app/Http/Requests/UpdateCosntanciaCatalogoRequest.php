@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAjusteRequest extends FormRequest
+class UpdateCosntanciaCatalogoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,8 @@ class StoreAjusteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|max:55|unique:ajustes,nombre",
-            "descripcion"=>"nullable|string",
-            "estado"=>"nullable|string",
+            "nombre"=>"required|string|max:55|unique:constancia_catalogos,nombre,".$this->id,
+            "descripcion"=>"nullable|string|max:100",
         ];
     }
 }

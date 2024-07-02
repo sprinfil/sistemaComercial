@@ -14,61 +14,55 @@ import {
     FormMessage,
 } from "../../components/ui/form.tsx";
 import { Input } from '../../components/ui/input.tsx';
-import { ajusteSchema } from './validaciones.ts';
+import { descuentoSchema } from './validaciones.ts';
 import { ModeToggle } from '../../components/ui/mode-toggle.tsx';
 import axiosClient from '../../axios-client.ts';
 import Loader from "../../components/ui/Loader.tsx";
 import Error from "../../components/ui/Error.tsx";
 import { Textarea } from "../ui/textarea.tsx";
-
+import { useStateContext } from "../../contexts/ContextDescuentos.tsx";
 import { useEffect } from "react";
 import { TrashIcon, Pencil2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
 
-import { useStateContext } from "../../contexts/ContextAjuste.tsx";
 
-
-const AjusteForm = () => {
-    const { ajuste, setAjuste, loadingTable, setLoadingTable, setAjustes, setAccion, accion } = useStateContext();
+const DescuentoForm = () => {
+    const { descuento, setDescuento, loadingTable, setLoadingTable, setDescuentos, setAccion, accion } = useStateContext();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
 
 
-    const form = useForm<z.infer<typeof ajusteSchema>>({
-        resolver: zodResolver(ajusteSchema),
+    const form = useForm<z.infer<typeof descuentoSchema>>({
+        resolver: zodResolver(descuentoSchema),
         defaultValues: {
-            id: ajuste.id,
-            nombre: ajuste.nombre,
-            descripcion: ajuste.descripcion,
-            estado: ajuste.estado,
+            id: descuento.id,
+            nombre: descuento.nombre,
+            descripcion: descuento.descripcion,
         },
     })
 
 
 
-    function onSubmit(values: z.infer<typeof ajusteSchema>) {
+    function onSubmit(values: z.infer<typeof descuentoSchema>) {
         setLoading(true);
         if (accion == "crear") {
-            axiosClient.post(`/AjustesCatalogo/create`, values)
+            axiosClient.post(`/descuentos/create`, values)
                 .then(() => {
                     setLoading(false);
-                    //SIEMPRE CHECAR LOS DATOS COINCIDAN CON EL MODELO
-                    setAjuste({
+                    setDescuento({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
-                        estado: "activo"
                     });
-                    getAjustes();
+                    getDescuentos();
                     console.log(values);
                     //setNotification("usuario creado");
                 })
@@ -79,16 +73,17 @@ const AjusteForm = () => {
                     }
                     setLoading(false);
                 })
+            console.log(abrirInput);
         }
         if (accion == "editar") {
-            axiosClient.put(`/AjustesCatalogo/update/${ajuste.id}`, values)
+            axiosClient.put(`/descuentos/update/${descuento.id}`, values)
                 .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getAjustes();
-                    setAjuste(data.data);
+                    getDescuentos();
+                    setDescuento(data.data);
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
@@ -102,12 +97,12 @@ const AjusteForm = () => {
     }
 
     //con este metodo obtienes las anomalias de la bd
-    const getAjustes = async () => {
+    const getDescuentos = async () => {
         setLoadingTable(true);
         try {
-            const response = await axiosClient.get("/AjustesCatalogo");
+            const response = await axiosClient.get("/descuentos");
             setLoadingTable(false);
-            setAjustes(response.data.data);
+            setDescuentos(response.data.data);
             console.log(response.data.data);
         } catch (error) {
             setLoadingTable(false);
@@ -118,11 +113,13 @@ const AjusteForm = () => {
     //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.put(`/AjustesCatalogo/log_delete/${ajuste.id}`);
-            getAjustes();
+            await axiosClient.put(`/descuentos/log_delete/${descuento.id}`, {
+                data: { id: descuento.id }
+            });
+            getDescuentos();
             setAccion("eliminar");
         } catch (error) {
-            console.error("Failed to delete ajuste:", error);
+            console.error("Failed to delete anomalia:", error);
         }
     };
 
@@ -133,9 +130,8 @@ const AjusteForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
-            setAjuste({});
+            setDescuento({});
             setAbrirInput(false);
         }
         if (accion == "crear") {
@@ -146,13 +142,11 @@ const AjusteForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
-            setAjuste({
+            setDescuento({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             })
         }
         if (accion == "ver") {
@@ -160,10 +154,9 @@ const AjusteForm = () => {
             setErrors({});
             setAccion("");
             form.reset({
-                id: ajuste.id,
-                nombre: ajuste.nombre,
-                descripcion: ajuste.descripcion,
-                estado: ajuste.estado
+                id: descuento.id,
+                nombre: descuento.nombre,
+                descripcion: descuento.descripcion,
             });
         }
         if (accion == "editar") {
@@ -179,10 +172,10 @@ const AjusteForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Ajuste</p>}
-                        {ajuste.nombre != "" && <p className="text-muted-foreground text-[20px]">{ajuste.nombre}</p>}
+                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Descuento</p>}
+                        {descuento.nombre != "" && <p className="text-muted-foreground text-[20px]">{descuento.nombre}</p>}
                     </div>
-                    {(ajuste.nombre != null && ajuste.nombre != "") &&
+                    {(descuento.nombre != null && descuento.nombre != "") &&
                         <>
                             <Modal
                                 method={onDelete}
@@ -212,10 +205,10 @@ const AjusteForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre de la anomalia" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del descuento" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre de la anomalia.
+                                        El nombre del descuento.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -230,12 +223,12 @@ const AjusteForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion de la anomalia"
+                                            placeholder="Descripcion del descuento"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Agregar una breve descripción.
+                                        Agrega una pequeña descripción.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -252,4 +245,4 @@ const AjusteForm = () => {
     )
 }
 
-export default AjusteForm
+export default DescuentoForm

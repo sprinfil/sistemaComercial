@@ -12,19 +12,19 @@ import {
 import IconButton from "../../ui/IconButton"
 import { TrashIcon, Pencil2Icon, PlusCircledIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { useState } from "react"
-import { useStateContext } from "../../../contexts/ContextAnomalias"
+import { useStateContext } from "../../../contexts/ContextDescuentos"
 import { Checkbox } from "@/components/ui/checkbox"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Anomalia = {
+export type Descuento = {
   id: number
   nombre: string
   descripcion: string
 }
 
 
-export const columns: ColumnDef<Anomalia>[] = [
+export const columns: ColumnDef<Descuento>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -64,11 +64,11 @@ export const columns: ColumnDef<Anomalia>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const anomalia = row.original
-      const { setAnomalia, setAccion } = useStateContext();
-      
+      const descuento = row.original
+      const { setDescuento, setAccion } = useStateContext();
+
       return (
-        <div onClick={()=>{setAnomalia(anomalia);setAccion("ver")}}>
+        <div onClick={()=>{setDescuento(descuento);setAccion("ver")}}>
           <IconButton>
             <EyeOpenIcon className="w-[20px] h-[20px]"/>
           </IconButton>
