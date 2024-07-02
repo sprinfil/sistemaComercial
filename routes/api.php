@@ -11,8 +11,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ConstanciaCatalogoController;
 use App\Http\Controllers\Api\GiroComercialCatalogoController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\AjusteController;
-use App\Http\Controllers\Api\AnomaliaController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConvenioController;
 

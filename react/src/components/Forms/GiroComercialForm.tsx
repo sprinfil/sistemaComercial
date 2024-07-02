@@ -225,12 +225,12 @@ const GiroComercialForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion de la constancia"
+                                            placeholder="Descripcion del giro comercial"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Agrega una pequeña descripción.
+                                        Agrega una breve descripción.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
