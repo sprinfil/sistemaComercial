@@ -8,6 +8,7 @@ import Catalogos from './views/Configuraciones/Catalogos/Catalogos';
 import Contratacion from './views/Contratos/Contratacion';
 import Poligonos from './views/PoligonosGeograficos/Poligonos';
 import { Proximamente } from './views/Layout/Proximamente';
+import  DetalleUsuario  from './views/Usuarios/Consultar/DetalleUsuario';
 
 const router = createBrowserRouter ([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter ([
             {
                 path:'/proximamente',
                 element: <Proximamente/>
+            },
+            {
+                path:'/usuario',
+                element: <DetalleUsuario/>
             },
         ]
     },

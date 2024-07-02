@@ -47,7 +47,6 @@ const AnomaliaForm = () => {
 
 
     function onSubmit(values: z.infer<typeof anomaliaSchema>) {
-        console.log("submit");
         setLoading(true);
         if (accion == "crear") {
             axiosClient.post(`/AnomaliasCatalogo/create`, values)
@@ -129,7 +128,6 @@ const AnomaliaForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setAnomalia({});
             setAbrirInput(false);
@@ -142,13 +140,11 @@ const AnomaliaForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             });
             setAnomalia({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
-                estado: "activo"
             })
         }
         if (accion == "ver") {
@@ -159,14 +155,12 @@ const AnomaliaForm = () => {
                 id: anomalia.id,
                 nombre: anomalia.nombre,
                 descripcion: anomalia.descripcion,
-                estado: anomalia.estado
             });
         }
         if (accion == "editar") {
             setAbrirInput(true);
             setErrors({});
         }
-        console.log(accion);
     }, [accion]);
 
     return (

@@ -1,7 +1,21 @@
 import React from 'react'
 
-export const DetalleUsuario = () => {
+const DetalleUsuario = () => {
   return (
-    <div>DetalleUsuario</div>
+    <>
+      <div>
+        <div>
+          <div>
+
+          </div>
+          <div>
+
+          </div>
+        </div>
+      </div>
+    </>
+
   )
 }
+
+export default DetalleUsuario
