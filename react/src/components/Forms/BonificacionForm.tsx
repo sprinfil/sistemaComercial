@@ -24,14 +24,65 @@ import { useEffect } from "react";
 import { TrashIcon, Pencil2Icon} from '@radix-ui/react-icons';
 import IconButton from "../ui/IconButton.tsx";
 import Modal from "../ui/Modal.tsx";
-
+import ModalReactivacion from "../ui/ModalReactivación.tsx"; //MODAL PARA REACTIVAR UN DATO QUE HAYA SIDO ELIMINADO
+import { useToast } from "@/components/ui/use-toast"; //IMPORTACIONES TOAST
+import { ToastAction } from "@/components/ui/toast"; //IMPORTACIONES TOAST
 
 const BonificacionForm = () => {
+    const { toast } = useToast()
     const { bonificacion, setBonificacion, loadingTable, setLoadingTable, setBonificaciones, setAccion, accion } = useStateContext();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
 
+    //#region SUCCESSTOAST
+    function successToastCreado() {
+        toast({
+            title: "¡Éxito!",
+            description: "La constancia se ha creado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastEditado() {
+        toast({
+            title: "¡Éxito!",
+            description: "La constancia se ha editado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastEliminado() {
+        toast({
+            title: "¡Éxito!",
+            description: "La constancia se ha eliminado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastRestaurado() {
+        toast({
+            title: "¡Éxito!",
+            description: "La constancia se ha restaurado correctamente",
+            variant: "success",
+
+        })
+    }
+    //#endregion
+
+
+    //Funcion de errores para el Toast
+    function errorToast() {
+
+        toast({
+            variant: "destructive",
+            title: "Oh, no. Error",
+            description: "Algo salió mal.",
+            action: <ToastAction altText="Try again">Intentar de nuevo</ToastAction>,
+        })
+
+
+    }
 
     const form = useForm<z.infer<typeof bonificacionesSchema>>({
         resolver: zodResolver(bonificacionesSchema),
@@ -49,6 +100,7 @@ const BonificacionForm = () => {
         if (accion == "crear") {
             axiosClient.post(`/AnomaliasCatalogo/create`, values)
                 .then(() => {
+                    successToastCreado();
                     setLoading(false);
                     setBonificacion({
                         id: 0,
@@ -60,12 +112,13 @@ const BonificacionForm = () => {
                         nombre: "",
                         descripcion: "ninguna",
                     });
-                    getAnomalias();
+                    getBonificacion();
                     console.log(values);
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
                     const response = err.response;
+                    errorToast();
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -80,12 +133,14 @@ const BonificacionForm = () => {
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getAnomalias();
+                    getBonificacion();
+                    successToastEditado();
                     setBonificacion(data.data);
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
                     const response = err.response;
+                    errorToast();
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -103,6 +158,7 @@ const BonificacionForm = () => {
             setBonificaciones(response.data.data);
             console.log(response.data.data);
         } catch (error) {
+            errorToast();
             setLoadingTable(false);
             console.error("Failed to fetch anomalias:", error);
         }
@@ -114,7 +170,9 @@ const BonificacionForm = () => {
             await axiosClient.put(`/AnomaliasCatalogo/log_delete/${bonificacion.id}`);
             getBonificacion();
             setAccion("eliminar");
+            successToastEliminado();
         } catch (error) {
+            errorToast();
             console.error("Failed to delete anomalia:", error);
         }
     };
