@@ -136,6 +136,9 @@ const MenuSuperior = () => {
             {/*logo*/}
             <div className='h-full min-w-[65px] max-w-[65px] min-h-[65px] max-h-[65px] p-[10px]'>
                 <img src={Logo} alt="" className='w-full h-full' />
+                <div>
+                    
+                </div>
             </div >
             {/*menu de opciones*/}
             <div className='h-full p-[10px] left-[100px] flex items-center '>
