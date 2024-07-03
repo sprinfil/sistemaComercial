@@ -11,7 +11,7 @@ class UpdateUsuarioRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,14 @@ class UpdateUsuarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre"=>"required|string|max:55".$this->id,
-            "descripcion"=>"nullable|string",
+            'nombre' => 'required|string|max:255',
+            'apellido_paterno' => 'required|string|max:25',
+            'apellido_materno' => 'nullable|string|max:255',
+            'nombre_contacto' => 'nullable|string|max:255',
+            'telefono' => 'required|string|max:15',
+            'curp' => 'required|string|size:18|unique:usuarios,curp',
+            'rfc' => 'required|string|size:13|unique:usuarios,rfc',
+            'correo' => 'required|string|email|max:255|unique:usuarios,correo',
         ];
     }
 }

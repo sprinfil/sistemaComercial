@@ -22,7 +22,14 @@ class UpdateUsuarioMoralRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|string|max:255',
+            'apellido_paterno' => 'nullable|string|max:255',
+            'apellido_materno' => 'nullable|string|max:255',
+            'nombre_contacto' => 'nullable|string|max:255',
+            'telefono' => 'required|string|size:10',
+            'curp' => 'nullable|string|size:18|unique:usuarios,curp',
+            'rfc' => 'required|string|size:13|unique:usuarios,rfc',
+            'correo' => 'required|string|email|max:255|unique:usuarios,correo',
         ];
     }
 }

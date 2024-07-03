@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUsuarioMoralRequest;
 use App\Models\Usuario;
 use App\Http\Requests\StoreUsuarioRequest;
+use App\Http\Requests\UpdateUsuarioMoralRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 use App\Http\Resources\UsuarioResource;
+use Exception;
 use Illuminate\Http\Request;
 
 class UsuarioController extends Controller
@@ -24,17 +27,18 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUsuarioRequest $request, string $tipo)
+    public function store(StoreUsuarioRequest $request)
     {
         $data=$request->validated();
         $usuario=Usuario::create($data);
         return response(new UsuarioResource($usuario),201);
     }
-    public function storeMoral(StoreUsuarioRequest $request, string $tipo)
+    //////
+    public function storemoral(StoreUsuarioMoralRequest $request)
     {
         $data=$request->validated();
-        $usuario=Usuario::create($data);
-        return response(new UsuarioResource($usuario),201);
+            $usuario=Usuario::create($data);
+            return response(new UsuarioResource($usuario),201);
     }
 
     /**
@@ -49,6 +53,15 @@ class UsuarioController extends Controller
      * Update the specified resource in storage.
      */
     public function update(UpdateUsuarioRequest $request)
+    {
+        $data=$request->validated();
+        $usuario=Usuario::find($request['id']);
+        $usuario->update();
+        $usuario->save();
+        return new UsuarioResource($usuario);
+    }
+    ///////
+    public function UpdateMoral(UpdateUsuarioMoralRequest $request)
     {
         $data=$request->validated();
         $usuario=Usuario::find($request['id']);

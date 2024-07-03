@@ -17,6 +17,5 @@ class Usuario extends Model
         'curp',
         'rfc',
         'correo',
-        'estado',
     ];
 }
