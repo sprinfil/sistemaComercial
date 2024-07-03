@@ -212,10 +212,10 @@ const AjusteForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe del Ajuste" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del ajuste" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre de la anomalia.
+                                        El nombre del ajuste.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -230,7 +230,7 @@ const AjusteForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion del Ajuste"
+                                            placeholder="Descripcion del ajuste"
                                             {...field}
                                         />
                                     </FormControl>

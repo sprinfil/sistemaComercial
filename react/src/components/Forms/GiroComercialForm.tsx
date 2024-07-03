@@ -207,10 +207,10 @@ const GiroComercialForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del Giro Comercial" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del giro comercial" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre del Giro Comercial.
+                                        El nombre del giro comercial.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>

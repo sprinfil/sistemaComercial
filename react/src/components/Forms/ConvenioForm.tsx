@@ -271,7 +271,7 @@ const ConceptoForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion del Conveio"
+                                            placeholder="Descripción del convenio"
                                             {...field}
                                         />
                                     </FormControl>
