@@ -18,8 +18,9 @@ class AnomaliaCatalagoController extends Controller
      */
     public function index()
     {
-        //$this->authorize('viewAny', AnomaliaCatalogo::class);
 
+        $this->authorize('viewAny', AnomaliaCatalogo::class);
+         
         return AnomaliaCatalogoResource::collection(
             AnomaliaCatalogo::all()
         );
@@ -31,6 +32,8 @@ class AnomaliaCatalagoController extends Controller
      */
     public function store(StoreAnomaliaCatalogoRequest $request)
     {
+        $this->authorize('create', AnomaliaCatalogo::class);
+
         $data = $request->validated();
         $anomalia = AnomaliaCatalogo::create($data);
         return response(new AnomaliaCatalogoResource($anomalia), 201);
