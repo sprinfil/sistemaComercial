@@ -8,11 +8,14 @@ use App\Http\Controllers\Api\DescuentoCatalogoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\bonificacionController;
+use App\Http\Controllers\Api\CatalogoBonificacionController;
 use App\Http\Controllers\Api\ConstanciaCatalogoController;
 use App\Http\Controllers\Api\GiroComercialCatalogoController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConvenioController;
+use App\Models\CatalogoBonificacion;
 
 //Route::post('/signup',[AuthController::class, "signup"]);
 Route::post('/login', [AuthController::class, "login"]);
@@ -101,5 +104,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
+
+
+//BONIFICACIONES
+
+Route::controller(CatalogoBonificacionController::class)->group(function(){
+    Route::get("/BonificacionesCatalogo", "index");
+    Route::post("/BonificacionesCatalogo/create", "store");
+    Route::put("/BonificacionesCatalogo/update/{id}", "update");
+
+    //log delete significa borrado logico
+    Route::put("BonificacionesCatalogo/log_delete/{id}", "destroy");
+});
 
 
