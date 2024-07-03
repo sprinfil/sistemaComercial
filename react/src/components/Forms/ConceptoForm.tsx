@@ -314,7 +314,7 @@ const ConceptoForm = () => {
                                         <Input readOnly={!abrirInput} placeholder="Escribe el nombre del concepto" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                    Nombre del concepto.
+                                    El nombre del concepto.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -329,7 +329,7 @@ const ConceptoForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripcion del nuevo concepto"
+                                            placeholder="Descripcion del concepto"
                                             {...field}
                                         />
                                     </FormControl>

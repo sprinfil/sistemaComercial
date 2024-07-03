@@ -1,8 +1,9 @@
 import { useState } from "react";
+import logo from '../../img/logo.png';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from '../../components/ui/button.tsx';
+import { Button } from '../ui/button.tsx';
 import {
     Form,
     FormControl,
@@ -11,131 +12,86 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "../../components/ui/form.tsx";
-import { Input } from '../../components/ui/input.tsx';
-import { conveniosSchema } from './validaciones.ts';
+} from "../ui/form.tsx";
+import { Input } from '../ui/input.tsx';
+import { girocomercialSchema } from './validaciones.ts';
+import { ModeToggle } from '../ui/mode-toggle.tsx';
 import axiosClient from '../../axios-client.ts';
-import Loader from "../../components/ui/Loader.tsx";
-import Error from "../../components/ui/Error.tsx";
+import Loader from "../ui/Loader.tsx";
+import Error from "../ui/Error.tsx";
 import { Textarea } from "../ui/textarea.tsx";
-import { useStateContext } from "../../contexts/ContextConvenio.tsx";
+import { useStateContext } from "../../contexts/ContextGiroComercial.tsx";
 import { useEffect } from "react";
-import { TrashIcon, Pencil2Icon } from '@radix-ui/react-icons';
+import { TrashIcon, Pencil2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
-import { useToast } from "@/components/ui/use-toast"; //IMPORTACIONES TOAST
-import { ToastAction } from "@/components/ui/toast"; //IMPORTACIONES TOAST
 
 
-
-
-
-const ConceptoForm = () => {
-    const { toast } = useToast()
-    const { convenio, setConvenio, loadingTable, setLoadingTable, setConvenios, setAccion, accion } = useStateContext();
+const GiroComercialForm = () => {
+    const { girocomercial, setGiroComercial, loadingTable, setLoadingTable, setGirosComerciales, setAccion, accion } = useStateContext();
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
 
 
-
-    const form = useForm<z.infer<typeof conveniosSchema>>({
-        resolver: zodResolver(conveniosSchema),
+    const form = useForm<z.infer<typeof girocomercialSchema>>({
+        resolver: zodResolver(girocomercialSchema),
         defaultValues: {
-            id: convenio.id,
-            nombre: convenio.nombre,
-            descripcion: convenio.descripcion,
+            id: girocomercial.id,
+            nombre: girocomercial.nombre,
+            descripcion: girocomercial.descripcion,
+            estado: girocomercial.estado,
         },
     })
 
-    //#region SUCCESSTOAST
-    function successToastCreado() {
-        toast({
-            title: "¡Éxito!",
-            description: "El convenio se ha creado correctamente",
-            variant: "success",
-
-        })
-    }
-    function successToastEditado() {
-        toast({
-            title: "¡Éxito!",
-            description: "El convenio se ha editado correctamente",
-            variant: "success",
-
-        })
-    }
-    function successToastEliminado() {
-        toast({
-            title: "¡Éxito!",
-            description: "El convenio se ha eliminado correctamente",
-            variant: "success",
-
-        })
-    }
-    //#endregion
 
 
-    //Funcion de errores para el Toast
-    function errorToast() {
-
-        toast({
-            variant: "destructive",
-            title: "Oh, no. Error",
-            description: "Algo salió mal.",
-            action: <ToastAction altText="Try again">Intentar de nuevo</ToastAction>,
-        })
-
-
-    }
-
-    function onSubmit(values: z.infer<typeof conveniosSchema>) {
+    function onSubmit(values: z.infer<typeof girocomercialSchema>) {
+        console.log("submit");
         setLoading(true);
         if (accion == "crear") {
-            axiosClient.post(`/Convenio/create`, values)
+            axiosClient.post(`/GirosComercialesCatalogo/create`, values)
                 .then(() => {
                     setLoading(false);
-                    setConvenio({
+                    setGiroComercial({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
+                        estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
                         descripcion: "ninguna",
+                        estado: "activo"
                     });
-                    getConvenios();
+                    getGirosComerciales();
                     console.log(values);
-                    successToastCreado();
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
                     const response = err.response;
-                    errorToast();
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
                     setLoading(false);
                 })
-            console.log(abrirInput);
+                console.log(abrirInput);
         }
         if (accion == "editar") {
-            axiosClient.put(`/Convenio/update/${convenio.id}`, values)
+            axiosClient.put(`/GirosComercialesCatalogo/update/${girocomercial.id}`, values)
                 .then((data) => {
                     setLoading(false);
                     //alert("anomalia creada");
                     setAbrirInput(false);
                     setAccion("");
-                    getConvenios();
-                    setConvenio(data.data);
-                    successToastEditado();
+                    getGirosComerciales();
+                    setGiroComercial(data.data);
                     //setNotification("usuario creado");
                 })
                 .catch((err) => {
                     const response = err.response;
-                    errorToast();
                     if (response && response.status === 422) {
                         setErrors(response.data.errors);
                     }
@@ -145,29 +101,27 @@ const ConceptoForm = () => {
     }
 
     //con este metodo obtienes las anomalias de la bd
-    const getConvenios = async () => {
+    const getGirosComerciales = async () => {
         setLoadingTable(true);
         try {
-            const response = await axiosClient.get("/Convenio");
+            const response = await axiosClient.get("/GirosComercialesCatalogo");
             setLoadingTable(false);
-            setConvenios(response.data.data);
+            setGirosComerciales(response.data.data);
             console.log(response.data.data);
         } catch (error) {
             setLoadingTable(false);
-            errorToast();
-            console.error("Failed to fetch anomalias:", error);
+            console.error("Failed to fetch constancias:", error);
         }
     };
 
     //elimianar anomalia
     const onDelete = async () => {
         try {
-            await axiosClient.put(`/Convenio/log_delete/${convenio.id}`);
-            getConvenios();
+            await axiosClient.put(`/GirosComercialesCatalogo/log_delete/${girocomercial.id}`);
+            getGirosComerciales();
             setAccion("eliminar");
-            successToastEliminado();
         } catch (error) {
-            console.error("Failed to delete anomalia:", error);
+            console.error("Failed to delete Giro Comercial:", error);
         }
     };
 
@@ -178,8 +132,9 @@ const ConceptoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
+                estado: "activo"
             });
-            setConvenio({});
+            setGiroComercial({});
             setAbrirInput(false);
         }
         if (accion == "crear") {
@@ -190,11 +145,13 @@ const ConceptoForm = () => {
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
+                estado: "activo"
             });
-            setConvenio({
+            setGiroComercial({
                 id: 0,
                 nombre: "",
                 descripcion: "ninguna",
+                estado: "activo"
             })
         }
         if (accion == "ver") {
@@ -202,43 +159,40 @@ const ConceptoForm = () => {
             setErrors({});
             setAccion("");
             form.reset({
-                id: convenio.id,
-                nombre: convenio.nombre,
-                descripcion: convenio.descripcion,
+                id: girocomercial.id,
+                nombre: girocomercial.nombre,
+                descripcion: girocomercial.descripcion,
+                estado: girocomercial.estado
             });
         }
         if (accion == "editar") {
             setAbrirInput(true);
             setErrors({});
         }
+        console.log(accion);
     }, [accion]);
-    return (
 
+    return (
         <div className="overflow-auto">
 
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Convenio</p>}
-                        {convenio.nombre != "" && <p className="text-muted-foreground text-[20px]">{convenio.nombre}</p>}
+                        {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Giro Comercial</p>}
+                        {girocomercial.nombre != "" && <p className="text-muted-foreground text-[20px]">{girocomercial.nombre}</p>}
                     </div>
-                    {(convenio.nombre != null && convenio.nombre != "") &&
-                        <>
-                            <Modal
-                                method={onDelete}
-                                button={
-                                    <IconButton>
-                                        <TrashIcon className="w-[20px] h-[20px]" />
-                                    </IconButton>}
-                            />
-                            <div onClick={() => setAccion("editar")}>
-                                <IconButton>
-                                    <Pencil2Icon className="w-[20px] h-[20px]" />
-                                </IconButton>
-                            </div>
-                        </>
-                    }
-
+                    <Modal
+                        method={onDelete}
+                        button={
+                            <IconButton>
+                                <TrashIcon className="w-[20px] h-[20px]" />
+                            </IconButton>}
+                    />
+                    <div onClick={() => setAccion("editar")}>
+                        <IconButton>
+                            <Pencil2Icon className="w-[20px] h-[20px]" />
+                        </IconButton>
+                    </div>
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">
@@ -253,10 +207,10 @@ const ConceptoForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del convenio" {...field} />
+                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre del giro comercial" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre del convenio.
+                                        El nombre del giro comercial.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -271,12 +225,12 @@ const ConceptoForm = () => {
                                     <FormControl>
                                         <Textarea
                                             readOnly={!abrirInput}
-                                            placeholder="Descripción del convenio"
+                                            placeholder="Descripcion del giro comercial"
                                             {...field}
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Agrega una pequeña descripción.
+                                        Agrega una breve descripción.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -293,4 +247,4 @@ const ConceptoForm = () => {
     )
 }
 
-export default ConceptoForm
+export default GiroComercialForm
