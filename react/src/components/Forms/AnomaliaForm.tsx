@@ -55,12 +55,12 @@ const AnomaliaForm = () => {
                     setAnomalia({
                         id: 0,
                         nombre: "",
-                        descripcion: "",
+                        descripcion: "ninguna",
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "",
+                        descripcion: "ninguna",
                     });
                     getAnomalias();
                     console.log(values);
@@ -127,7 +127,7 @@ const AnomaliaForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                descripcion: "ninguna",
             });
             setAnomalia({});
             setAbrirInput(false);
@@ -139,12 +139,12 @@ const AnomaliaForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                descripcion: "ninguna",
             });
             setAnomalia({
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                descripcion: "ninguna",
             })
         }
         if (accion == "ver") {

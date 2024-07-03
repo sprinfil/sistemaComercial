@@ -109,13 +109,13 @@ const GiroComercialForm = () => {
                     setGiroComercial({
                         id: 0,
                         nombre: "",
-                        descripcion: "",
+                        descripcion: "ninguna",
                         estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "",
+                        descripcion: "ninguna",
                         estado: "activo"
                     });
                     getGirosComerciales();
@@ -189,7 +189,7 @@ const GiroComercialForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                descripcion: "ninguna",
                 estado: "activo"
             });
             setGiroComercial({});
@@ -202,13 +202,13 @@ const GiroComercialForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "",
+                descripcion: "ninguna",
                 estado: "activo"
             });
             setGiroComercial({
-                id: 0,  
+                id: 0,
                 nombre: "",
-                descripcion: "",
+                descripcion: "ninguna",
                 estado: "activo"
             })
         }
