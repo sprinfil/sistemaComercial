@@ -16,10 +16,11 @@ use App\Http\Controllers\Api\ConvenioController;
 //Route::post('/signup',[AuthController::class, "signup"]);
 Route::post('/login', [AuthController::class, "login"]);
 
-//AQUI VAN TODAS LAS RUTAS
+
 Route::middleware('auth:sanctum')->group(function () {
+    //AQUI VAN TODAS LAS RUTAS
     Route::post("/logout", [AuthController::class, "logout"]);
-    
+
     //ANOMALIAS
     Route::controller(AnomaliaCatalagoController::class)->group(function () {
         Route::get("/AnomaliasCatalogo", "index");
