@@ -42,9 +42,10 @@ const MenuSuperior = () => {
                 {
                     titulo: "Crear Nuevo Usuario",
                     descripcion: "Registra un nuevo ususario sin contrato.",
-                    route: "/proximamente"
+                    route: "/CrearUsuario"
                 }
             ]
+
         },
         {
             titulo: "Poligonos Geograficos",

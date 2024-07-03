@@ -18,8 +18,9 @@ class AnomaliaCatalagoController extends Controller
      */
     public function index()
     {
-        //$this->authorize('viewAny', AnomaliaCatalogo::class);
 
+        $this->authorize('viewAny', AnomaliaCatalogo::class);
+         
         return AnomaliaCatalogoResource::collection(
             AnomaliaCatalogo::all()
         );
@@ -31,6 +32,8 @@ class AnomaliaCatalagoController extends Controller
      */
     public function store(StoreAnomaliaCatalogoRequest $request)
     {
+        $this->authorize('create', AnomaliaCatalogo::class);
+
         $data = $request->validated();
         $anomalia = AnomaliaCatalogo::create($data);
         return response(new AnomaliaCatalogoResource($anomalia), 201);
@@ -47,7 +50,7 @@ class AnomaliaCatalagoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnomaliaCatalogoRequest $request, AnomaliaCatalogo $anomaliaCatalogo)
+    public function update(UpdateAnomaliaCatalogoRequest $request)
     {
         $data = $request->validated();
         $anomalia = AnomaliaCatalogo::find($request["id"]);
@@ -59,7 +62,7 @@ class AnomaliaCatalagoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AnomaliaCatalogo $anomaliaCatalogo, Request $request)
+    public function destroy(Request $request)
     {
         $anomalia = AnomaliaCatalogo::find($request["id"]);
         $anomalia->delete();
