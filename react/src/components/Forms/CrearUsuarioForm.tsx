@@ -95,7 +95,7 @@ const CrearUsuarioForm = () => {
                         />
                         <FormField
                             control={form.control}
-                            name="nombre"
+                            name="apellidopaterno"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Apellido paterno</FormLabel>
@@ -111,7 +111,7 @@ const CrearUsuarioForm = () => {
                         />
                         <FormField
                             control={form.control}
-                            name="nombre"
+                            name="apellidomaterno"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Apellido materno</FormLabel>
@@ -127,12 +127,12 @@ const CrearUsuarioForm = () => {
                         />
                          <FormField
                             control={form.control}
-                            name="nombre"
+                            name="telefono"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Telefono</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Escribe telefono del usuario" {...field} />
+                                        <Input placeholder="Escribe telefono del usuario" {...field} type='number' />
                                     </FormControl>
                                     <FormDescription>
                                         El telefono del usuario.
