@@ -95,21 +95,18 @@ class ConceptoController extends Controller
 
 
 
-    public function restaurarConcepto($id)
+    public function restaurarDato(ConceptoCatalogo $conceptoCatalogo, Request $request)
     {
-    $concepto = ConceptoCatalogo::withTrashed()->find($id);
 
-    if (!$concepto) {
-        return response()->json(['message' => 'Concepto no encontrado.'], 404);
-    }
+        $conceptoCatalogo = ConceptoCatalogo::withTrashed()->findOrFail($request->id);
 
-    if (!$concepto->trashed()) {
-        return response()->json(['message' => 'El concepto no está eliminado.'], 400);
-    }
+           // Verifica si el registro está eliminado
+        if ($conceptoCatalogo->trashed()) {
+            // Restaura el registro
+            $conceptoCatalogo->restore();
+            return response()->json(['message' => 'El concepto ha sido restaurado.'], 200);
+        }
 
-    $concepto->restore();
-
-    return response()->json(['message' => 'Concepto restaurado exitosamente.'], 200);
     }
 
 }

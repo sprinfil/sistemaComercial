@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ConstanciaCatalogoController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\AjusteController;
-use App\Http\Controllers\Api\AnomaliaController;
 use App\Http\Controllers\Api\ConceptoController;
 use App\Http\Controllers\Api\ConvenioController;
 
@@ -74,7 +72,7 @@ Route::controller(ConceptoController::class)->group(function () {
     Route::get("/Concepto", "index");
     Route::post("/Concepto/create", "store");
     Route::put("/Concepto/update/{id}", "update");
-    Route::put("/Concepto/restaurar/{id}", "restaurarConcepto");
+    Route::put("/Concepto/restaurar/{id}", "restaurarDato");
     //log delete significa borrado logico
     Route::put("/Concepto/log_delete/{id}", "destroy");
 });

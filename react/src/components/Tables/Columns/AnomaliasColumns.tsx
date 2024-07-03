@@ -66,7 +66,7 @@ export const columns: ColumnDef<Anomalia>[] = [
     cell: ({ row }) => {
       const anomalia = row.original
       const { setAnomalia, setAccion } = useStateContext();
-      
+
       return (
         <div onClick={()=>{setAnomalia(anomalia);setAccion("ver")}}>
           <IconButton>

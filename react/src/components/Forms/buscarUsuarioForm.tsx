@@ -2,7 +2,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from '../../components/ui/button.tsx';
+import { Button } from '../ui/button.tsx';
 import {
     Form,
     FormControl,
@@ -11,8 +11,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from "../../components/ui/form.tsx";
-import { Input } from '../../components/ui/input.tsx';
+} from "../ui/form.tsx";
+import { Input } from '../ui/input.tsx';
 import { anomaliaSchema } from './validaciones.ts';
 
 
@@ -41,8 +41,8 @@ export const BuscarUsuario = () => {
         console.log("ya jala");
     }
 
-  return (
-   <div className='w-[53vh] rounded-md border border-border p-4 h-[30vh]'>
+return (
+<div className='w-[53vh] rounded-md border border-border p-4 h-[30vh]'>
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div style={{ color: 'grey' }}>Consultar al usuario</div>

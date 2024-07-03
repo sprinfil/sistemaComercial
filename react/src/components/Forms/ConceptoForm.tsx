@@ -26,6 +26,7 @@ import { TrashIcon, Pencil2Icon, PlusCircledIcon, ColorWheelIcon } from '@radix-
 import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
+import ModalReactivacion from "../ui/ModalReactivación.tsx";
 import { useToast } from "@/components/ui/use-toast"; //IMPORTACIONES TOAST
 import { ToastAction } from "@/components/ui/toast"; //IMPORTACIONES TOAST
 import { Concepto } from "../Tables/Columns/ConceptosColumns.tsx";
@@ -41,6 +42,7 @@ const ConceptoForm = () => {
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
     const [conceptoIdParaRestaurar, setConceptoIdParaRestaurar] = useState(null);
+    const [ModalReactivacionOpen, setModalReactivacionOpen] = useState(false);
 
 
 
@@ -48,7 +50,7 @@ const ConceptoForm = () => {
     function successToastCreado() {
         toast({
             title: "¡Éxito!",
-            description: "El convenio se ha creado correctamente",
+            description: "El concepto se ha creado correctamente",
             variant: "success",
 
         })
@@ -56,7 +58,7 @@ const ConceptoForm = () => {
     function successToastEditado() {
         toast({
             title: "¡Éxito!",
-            description: "El convenio se ha editado correctamente",
+            description: "El concepto se ha editado correctamente",
             variant: "success",
 
         })
@@ -64,7 +66,15 @@ const ConceptoForm = () => {
     function successToastEliminado() {
         toast({
             title: "¡Éxito!",
-            description: "El convenio se ha eliminado correctamente",
+            description: "El concepto se ha eliminado correctamente",
+            variant: "success",
+
+        })
+    }
+    function successToastRestaurado() {
+        toast({
+            title: "¡Éxito!",
+            description: "El concepto se ha restaurado correctamente",
             variant: "success",
 
         })
@@ -109,13 +119,9 @@ const ConceptoForm = () => {
                     const data = response.data;
                     if (data.restore) {
                         setConceptoIdParaRestaurar(data.concepto_id);
-                        // Preguntar al usuario si desea restaurar el concepto
-                        if (window.confirm("El concepto ya existe pero ha sido eliminado. ¿Desea restaurarlo?")) {
-                            //restaurarConcepto({});
-                        } else {
-                            setLoading(false);
-                        }
+                        setModalReactivacionOpen(true);
                     } else {
+                        setModalReactivacionOpen(false);
                         setLoading(false);
                         setAbrirInput(false);
                         setAccion("crear");
@@ -160,7 +166,9 @@ const ConceptoForm = () => {
         }
     }
 
-    const restaurarConcepto = () => {
+
+    //Metodo para estaurar el dato que se encuentra eliminado(soft-delete)
+    const restaurarDato = (concepto_id: any) => {
         axiosClient.put(`/Concepto/restaurar/${concepto_id}`)
             .then(() => {
                 setLoading(false);
@@ -173,7 +181,8 @@ const ConceptoForm = () => {
                     estado: "activo"
                 });
                 getConcepto();
-                successToastCreado();
+                successToastRestaurado();
+                setModalReactivacionOpen(false);
             })
             .catch((err) => {
                 errorToast();
@@ -258,7 +267,7 @@ const ConceptoForm = () => {
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-                    {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nueva Anomalia</p>}
+                    {accion == "crear" && <p className="text-muted-foreground text-[20px]">Creando Nuevo Concepto</p>}
                     {concepto.nombre != "" && <p className="text-muted-foreground text-[20px]">{concepto.nombre}</p>}
                     </div>
                     { (concepto.nombre != null && concepto.nombre != "") &&
@@ -276,6 +285,17 @@ const ConceptoForm = () => {
                                 </IconButton>
                             </div>
                         </>
+                    }
+                    {// ESTE ES EL MODAL DE REACTIVACIÓN
+                    //ES UNA VALIDACIÓN POR SI LO QUE ESTA ELIMINADO(SOFT DELETE) LO ENCUENTRA
+                    //SE ABRE EL MODAL Y SE RESTAURA EL DATO.
+                    }
+                    {ModalReactivacionOpen &&
+                            <ModalReactivacion
+                            isOpen={ModalReactivacionOpen}
+                            setIsOpen={setModalReactivacionOpen}
+                            method={() => restaurarDato(conceptoIdParaRestaurar)}
+                        />
                     }
                 </div>
             </div>
