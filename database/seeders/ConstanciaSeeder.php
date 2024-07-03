@@ -13,7 +13,7 @@ class ConstanciaSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('cosntancia_catalogos')->insert([
+        DB::table('constancia_catalogos')->insert([
             [
                 'nombre' => 'Constancia no adeudo',
                 'descripcion' => 'Constancia que valida el no adeudo del usuario',
