@@ -106,12 +106,12 @@ const ConstanciaForm = () => {
                     setConstancia({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     getConstancias();
                     console.log(values);
@@ -181,7 +181,7 @@ const ConstanciaForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setConstancia({});
             setAbrirInput(false);
@@ -193,12 +193,12 @@ const ConstanciaForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setConstancia({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             })
         }
         if (accion == "ver") {

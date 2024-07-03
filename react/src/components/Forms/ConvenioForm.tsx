@@ -99,12 +99,12 @@ const ConceptoForm = () => {
                     setConvenio({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     getConvenios();
                     console.log(values);
@@ -177,7 +177,7 @@ const ConceptoForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setConvenio({});
             setAbrirInput(false);
@@ -189,12 +189,12 @@ const ConceptoForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setConvenio({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             })
         }
         if (accion == "ver") {

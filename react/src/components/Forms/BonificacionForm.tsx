@@ -105,12 +105,12 @@ const BonificacionForm = () => {
                     setBonificacion({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     getBonificacion();
                     console.log(values);
@@ -183,7 +183,7 @@ const BonificacionForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setBonificacion({});
             setAbrirInput(false);
@@ -195,12 +195,12 @@ const BonificacionForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setBonificacion({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             })
         }
         if (accion == "ver") {

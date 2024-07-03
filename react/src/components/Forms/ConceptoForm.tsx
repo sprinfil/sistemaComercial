@@ -128,7 +128,7 @@ const ConceptoForm = () => {
                         setConcepto({
                             id: 0,
                             nombre: "",
-                            descripcion: "ninguna",
+                            descripcion: "",
                             estado: "activo"
                         });
                         getConcepto();
@@ -177,7 +177,7 @@ const ConceptoForm = () => {
                 setConcepto({
                     id: 0,
                     nombre: "",
-                    descripcion: "ninguna",
+                    descripcion: "",
                     estado: "activo"
                 });
                 getConcepto();
@@ -224,7 +224,7 @@ const ConceptoForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setConcepto({});
             setAbrirInput(false);
@@ -236,12 +236,12 @@ const ConceptoForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setConcepto({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             })
         }
         if (accion == "ver") {

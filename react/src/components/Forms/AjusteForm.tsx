@@ -109,13 +109,13 @@ const AjusteForm = () => {
                     setAjuste({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                         estado: "activo"
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                         estado: "activo"
                     });
                     getAjustes();
@@ -188,7 +188,7 @@ const AjusteForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
                 estado: "activo"
             });
             setAjuste({});
@@ -201,13 +201,13 @@ const AjusteForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
                 estado: "activo"
             });
             setAjuste({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
                 estado: "activo"
             })
         }

@@ -116,12 +116,12 @@ const DescuentoForm = () => {
                     setDescuento({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     form.reset({
                         id: 0,
                         nombre: "",
-                        descripcion: "ninguna",
+                        descripcion: "",
                     });
                     getDescuentos();
                     console.log(values);
@@ -196,7 +196,7 @@ const DescuentoForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setDescuento({});
             setAbrirInput(false);
@@ -208,12 +208,12 @@ const DescuentoForm = () => {
             form.reset({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             });
             setDescuento({
                 id: 0,
                 nombre: "",
-                descripcion: "ninguna",
+                descripcion: "",
             })
         }
         if (accion == "ver") {
