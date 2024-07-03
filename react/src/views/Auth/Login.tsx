@@ -70,11 +70,13 @@ const Login = () => {
         </div>
        
 
-        {
-          loading && <Loader />
-        }
 
         <div className='w-[50%] h-full py-[15px] overflow-auto px-1'>
+          <div className="fixed">    {
+          loading && <Loader />
+        }</div>
+    
+
           <div>
             <Error errors={errors} />
             <Form {...form}>
