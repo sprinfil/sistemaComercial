@@ -139,7 +139,7 @@ const MenuSuperior = () => {
                 <img src={Logo} alt="" className='w-full h-full' />
             </div >
             {/*menu de opciones*/}
-            <div className='h-[500px] p-[10px] left-[100px] flex items-center '>
+            <div className='p-[10px] left-[100px] flex items-center'>
                 <NavigationMenu>
                     <NavigationMenuList >
                         {opciones.map((opcion, key) => (
