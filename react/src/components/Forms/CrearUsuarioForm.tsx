@@ -45,6 +45,7 @@ const CrearUsuarioForm = () => {
     async function onSubmit(values: z.infer<typeof crearusuarionuevoSchema>) {
         setLoading(true);
         setErrors({});
+        console.log(values)
         try {
             const response = await axiosClient.post('/ruta/del/api/crear-usuario', values);
             console.log('Usuario creado:', response.data);
@@ -64,7 +65,8 @@ const CrearUsuarioForm = () => {
         <div className="overflow-auto">
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
-                    <div className="mb-[10px] h-full w-full mx-4"><p className="text-sm font-medium">Crear usuario</p>
+                    <div className="mb-[10px] h-full w-full mx-4">
+                        <p className="text-sm font-medium">Crear usuario</p>
                     </div>
                 </div>
             </div>
@@ -127,7 +129,7 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>Correo electronico</FormLabel>
                                     <FormControl>
-                                        <Input  placeholder="Escribe el correo electronico" {...field} />
+                                        <Input  placeholder="Escribe el correo electronico" {...field} type='email'/>
                                     </FormControl>
                                     <FormDescription>
                                         El correo electronico del usuario.
