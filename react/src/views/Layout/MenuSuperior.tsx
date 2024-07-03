@@ -19,6 +19,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import axiosClient from '../../axios-client'
 import { ContextProvider, useStateContext } from '../../contexts/ContextProvider';
 import logo from "../../img/logo.png";
+import { ExitIcon } from '@radix-ui/react-icons';
 
 
 const MenuSuperior = () => {
@@ -132,16 +133,13 @@ const MenuSuperior = () => {
 
 
     return (
-        <div className='bg-background h-[10vh] border border-border shadow-sm relative flex items-center select-none'>
+        <div className=' bg-background h-[9vh] border border-border shadow-sm relative flex items-center select-none'>
             {/*logo*/}
-            <div className='h-full min-w-[65px] max-w-[65px] min-h-[65px] max-h-[65px] p-[10px]'>
+            <div className='h-full min-w-[60px] max-w-[60px] min-h-[60px] max-h-[60px] p-[10px]'>
                 <img src={Logo} alt="" className='w-full h-full' />
-                <div>
-                    
-                </div>
             </div >
             {/*menu de opciones*/}
-            <div className='h-full p-[10px] left-[100px] flex items-center '>
+            <div className='h-[500px] p-[10px] left-[100px] flex items-center '>
                 <NavigationMenu>
                     <NavigationMenuList >
                         {opciones.map((opcion, key) => (
@@ -154,10 +152,10 @@ const MenuSuperior = () => {
                                             {opcion.opciones.map((opcion, index) => (
                                                 <Link to={opcion.route} key={index}>
                                                     <li key={key} className='hover:hover:bg-accent p-3 rounded-md hover:cursor-pointer ease-in duration-100'>
-                                                        <div key={key} className="mb-1 text-md font-medium">
+                                                        <div key={key} className="mb-1 text-[12px] font-medium">
                                                             {opcion.titulo}
                                                         </div>
-                                                        <p key={key} className="text-sm leading-tight text-muted-foreground">
+                                                        <p key={key} className="text-[12px] leading-tight text-muted-foreground">
                                                             {opcion.descripcion}
                                                         </p>
                                                     </li>
@@ -173,9 +171,9 @@ const MenuSuperior = () => {
             </div>
             <div className=' h-full w-[200px] absolute right-5 flex items-center  justify-center gap-3'>
                 <div className=' px-2 py-1 rounded-md hover:bg-accent cursor-pointer ease-in duration-100' onClick={logout} >
-                    <FontAwesomeIcon icon={faRightFromBracket} className='rotate-180' />
+                    <ExitIcon className="w-[20px] h-[20px] rotate-180 text-red-500" />
                 </div>
-                <p>{user.name}</p>
+                <p className='text-[12px]'>{user.name}</p>
                 <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>
