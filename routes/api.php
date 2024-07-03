@@ -19,6 +19,7 @@ Route::post('/login', [AuthController::class, "login"]);
 //AQUI VAN TODAS LAS RUTAS
 Route::middleware('auth:sanctum')->group(function () {
     Route::post("/logout", [AuthController::class, "logout"]);
+    
     //ANOMALIAS
     Route::controller(AnomaliaCatalagoController::class)->group(function () {
         Route::get("/AnomaliasCatalogo", "index");
@@ -36,7 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
         //log delete significa borrado logico
         Route::put("/descuentos/log_delete/{id}", "destroy");
     });
-
 
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -57,7 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put("/AjustesCatalogo/log_delete/{id}", "destroy");
     });
 
-
     //CONCEPTOS
     Route::controller(ConceptoController::class)->group(function () {
         Route::get("/Concepto", "index");
@@ -77,7 +76,6 @@ Route::middleware('auth:sanctum')->group(function () {
         //log delete significa borrado logico
         Route::put("/Convenio/log_delete/{id}", "destroy");
     });
-
 
     //Constancia
     Route::controller(ConstanciaCatalogoController::class)->group(function () {

@@ -50,7 +50,7 @@ class AnomaliaCatalagoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAnomaliaCatalogoRequest $request, AnomaliaCatalogo $anomaliaCatalogo)
+    public function update(UpdateAnomaliaCatalogoRequest $request)
     {
         $data = $request->validated();
         $anomalia = AnomaliaCatalogo::find($request["id"]);
@@ -62,7 +62,7 @@ class AnomaliaCatalagoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AnomaliaCatalogo $anomaliaCatalogo, Request $request)
+    public function destroy(Request $request)
     {
         $anomalia = AnomaliaCatalogo::find($request["id"]);
         $anomalia->delete();
