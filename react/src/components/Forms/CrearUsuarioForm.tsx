@@ -26,12 +26,10 @@ import IconButton from "../ui/IconButton.tsx";
 import { ComboBoxActivoInactivo } from "../ui/ComboBox.tsx";
 import Modal from "../ui/Modal.tsx";
 
-
 const CrearUsuarioForm = () => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [abrirInput, setAbrirInput] = useState(false);
-
 
     const form = useForm<z.infer<typeof crearusuarionuevoSchema>>({
         resolver: zodResolver(crearusuarionuevoSchema),
@@ -42,32 +40,36 @@ const CrearUsuarioForm = () => {
             rfc: "",
             correo: "",
         },
-    })
+    });
 
-
-
-    function onSubmit(values: z.infer<typeof crearusuarionuevoSchema>) {
+    async function onSubmit(values: z.infer<typeof crearusuarionuevoSchema>) {
         setLoading(true);
-
+        setErrors({});
+        try {
+            const response = await axiosClient.post('/ruta/del/api/crear-usuario', values);
+            console.log('Usuario creado:', response.data);
+            // Aquí puedes realizar alguna acción adicional, como redirigir al usuario o mostrar un mensaje de éxito
+        } catch (error) {
+            if (error.response && error.response.data) {
+                setErrors(error.response.data);
+            } else {
+                setErrors({ general: 'Ocurrió un error al crear el usuario' });
+            }
+        } finally {
+            setLoading(false);
+        }
     }
-
-
 
     return (
         <div className="overflow-auto">
-
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
                     <div className="mb-[10px] h-full w-full mx-4">
-
                     </div>
-
-
                 </div>
             </div>
             <div className="py-[20px] px-[10px] ">
-
-                {errors && <Error errors={errors} />}
+                {errors.general && <Error errors={errors.general} />}
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                         <FormField
@@ -77,7 +79,7 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe el nombre de la anomalia" {...field} />
+                                        <Input placeholder="Escribe el nombre de la anomalia" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                         El nombre de la anomalia.
@@ -93,7 +95,7 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>CURP</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe la curp" {...field} />
+                                        <Input placeholder="Escribe la curp" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                         El nombre de la curp.
@@ -109,7 +111,7 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>RFC</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe la rfc" {...field} />
+                                        <Input  placeholder="Escribe la rfc" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                         El nombre de la rfc.
@@ -125,7 +127,7 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>Correo electronico</FormLabel>
                                     <FormControl>
-                                        <Input readOnly={!abrirInput} placeholder="Escribe el correo electronico" {...field} />
+                                        <Input  placeholder="Escribe el correo electronico" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                         El nombre del correo electronico.
@@ -136,13 +138,11 @@ const CrearUsuarioForm = () => {
                         />
                         {loading && <Loader />}
                         <Button type="submit">Guardar</Button>
-
                     </form>
                 </Form>
             </div>
-
         </div>
-    )
+    );
 }
 
-export default CrearUsuarioForm
+export default CrearUsuarioForm;
