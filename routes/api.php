@@ -22,6 +22,8 @@ Route::middleware('auth:sanctum')->group(function () {
     //AQUI VAN TODAS LAS RUTAS
     Route::post("/logout", [AuthController::class, "logout"]);
 
+
+//region CATALOGOS
     //ANOMALIAS
     Route::controller(AnomaliaCatalagoController::class)->group(function () {
         Route::get("/AnomaliasCatalogo", "index");
@@ -48,6 +50,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->group(function () {
         Route::get("/users/{id}", "show");
     });
+
+    
 
     //AJUSTES
     Route::controller(AjusteCatalagoController::class)->group(function () {
@@ -88,4 +92,14 @@ Route::middleware('auth:sanctum')->group(function () {
         //log delete significa borrado logico
         Route::put("/ConstanciasCatalogo/log_delete/{id}", "destroy");
     });
+
+    //endregion
 });
+
+
+
+
+
+
+
+

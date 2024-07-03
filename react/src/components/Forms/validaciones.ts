@@ -14,14 +14,14 @@ export const loginSchema = z.object({
 export const anomaliaSchema = z.object({
   id: z.number(),
   nombre: z.string().min(1, "El Nombre es requerido"),
-  descripcion: z.string()
+  descripcion: z.string().min(1, "La descripción es requerida")
 })
 
 //VALIDACIONES AJUSTE
 export const ajusteSchema = z.object({
   id: z.number(),
   nombre: z.string().min(1, "El Nombre es requerido"),
-  descripcion: z.string()
+  descripcion: z.string().min(1, "La descripción es requerida")
 })
 
 
@@ -29,34 +29,44 @@ export const ajusteSchema = z.object({
 export const conceptoSchema = z.object({
     id: z.number(),
     nombre: z.string().min(1, "El Nombre es requerido"),
-    descripcion: z.string(),
-})
+    descripcion: z.string().min(1, "La descripción es requerida")
+  })
 //VALIDACIONES DESCUENTOS
 export const descuentoSchema = z.object({
     id: z.number(),
     nombre: z.string().min(1, "El Nombre es requerido"),
-    descripcion: z.string(),
+    descripcion: z.string().min(1, "La descripción es requerida")
   })
 
  //VALIDACIONES CONVENIO
 export const conveniosSchema = z.object({
     id: z.number(),
     nombre: z.string().min(1, "El Nombre es requerido"),
-    descripcion: z.string(),
-})
+    descripcion: z.string().min(1, "La descripción es requerida")
+  })
 //VALIDACIONES CONTANCIAS
 export const constanciaSchema = z.object({
     id: z.number(),
     nombre: z.string().min(1, "El Nombre es requerido"),
-    descripcion: z.string(),
+    descripcion: z.string().min(1, "La descripción es requerida")
   })
 //VALIDACIONES GIROCOMERCIAL
 export const girocomercialSchema = z.object({
     id: z.number(),
     nombre: z.string().min(1, "El Nombre es requerido"),
-    descripcion: z.string(),
+    descripcion: z.string().min(1, "La descripción es requerida")
   })
 
 
+
+
+
+
+  //VALIDACIONES BONIFICACIONES
+export const bonificacionesSchema = z.object({
+    id: z.number(),
+    nombre: z.string().min(1, "El Nombre es requerido"),
+    descripcion: z.string(),
+  })
 
 

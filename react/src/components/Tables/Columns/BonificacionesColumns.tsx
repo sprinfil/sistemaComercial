@@ -3,72 +3,69 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import IconButton from "../../ui/IconButton"
 import {EyeOpenIcon } from '@radix-ui/react-icons';
-import { useStateContext } from "../../../contexts/ContextConcepto"
+import { useStateContext } from "../../../contexts/ContextBonificaciones"
 import { Checkbox } from "@/components/ui/checkbox"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Concepto = {
-  id: number
-  nombre: string
-  descripcion: string
+export type Bonificacion = {
+id: number
+nombre: string
+descripcion: string
 }
 
 
-export const columns: ColumnDef<Concepto>[] = [
-  {
+export const columns: ColumnDef<Bonificacion>[] = [
+{
     id: "select",
     header: ({ table }) => (
-      <Checkbox
+    <Checkbox
         checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+        table.getIsAllPageRowsSelected() ||
+        (table.getIsSomePageRowsSelected() && "indeterminate")
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
-      />
+    />
     ),
     cell: ({ row }) => (
-      <Checkbox
+    <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
-      />
+    />
     ),
     enableSorting: false,
     enableHiding: false,
-  },
-  {
+},
+{
     accessorKey: "nombre",
     header: ({ column }) => {
-      return (
+    return (
         <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "desc")}
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Nombre
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+        Nombre
+        <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+    )
     },
-  },
-  {
+},
+{
     id: "actions",
     cell: ({ row }) => {
+    const bonificacion = row.original
+    const { setBonificacion, setAccion } = useStateContext();
 
-
-      const concepto = row.original
-      const { setConcepto, setAccion } = useStateContext();
-
-
-      return (
-        <div onClick={()=>{setConcepto(concepto);setAccion("ver")}}>
-          <IconButton>
+    return (
+        <div onClick={()=>{setBonificacion(bonificacion);setAccion("ver")}}>
+        <IconButton>
             <EyeOpenIcon className="w-[20px] h-[20px]"/>
-          </IconButton>
+        </IconButton>
         </div>
-      )
+    )
     },
-  },
+},
 
 ]
