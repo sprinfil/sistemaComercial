@@ -36,6 +36,9 @@ const CrearUsuarioForm = () => {
         defaultValues: {
             id: 0,
             nombre: "",
+            apellidopaterno:"",
+            apellidomaterno:"",
+            telefono:"",
             curp: "",
             rfc: "",
             correo: "",
@@ -81,10 +84,58 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>Nombre</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Escribe el nombre de la anomalia" {...field} />
+                                        <Input placeholder="Escribe el nombre del usuario" {...field} />
                                     </FormControl>
                                     <FormDescription>
                                         El nombre de la crear usuario.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="apellidopaterno"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Apellido paterno</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Escribe el apellido paterno" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        El apellido paterno.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="apellidomaterno"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Apellido materno</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Escribe el apellido materno" {...field} />
+                                    </FormControl>
+                                    <FormDescription>
+                                        El apellido materno.
+                                    </FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                         <FormField
+                            control={form.control}
+                            name="telefono"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Telefono</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Escribe telefono del usuario" {...field} type='number' />
+                                    </FormControl>
+                                    <FormDescription>
+                                        El telefono del usuario.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
