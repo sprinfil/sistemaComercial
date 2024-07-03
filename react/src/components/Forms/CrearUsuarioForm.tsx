@@ -64,7 +64,7 @@ const CrearUsuarioForm = () => {
         <div className="overflow-auto">
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
-                    <div className="mb-[10px] h-full w-full mx-4"><p className="text-sm font-medium">Crear usuario</p>
+                    <div className="mb-[10px] h-full w-full mx-4 "><p className="text-lg font-medium">Crear usuario</p>
                     </div>
                 </div>
             </div>
