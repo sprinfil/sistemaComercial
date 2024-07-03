@@ -64,7 +64,7 @@ const CrearUsuarioForm = () => {
         <div className="overflow-auto">
             <div className='flex h-[40px] items-center mb-[10px] bg-card rounded-sm'>
                 <div className='h-[20px] w-full flex items-center justify-end'>
-                    <div className="mb-[10px] h-full w-full mx-4">
+                    <div className="mb-[10px] h-full w-full mx-4"><p className="text-sm font-medium">Crear usuario</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@ const CrearUsuarioForm = () => {
                                         <Input placeholder="Escribe el nombre de la anomalia" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre de la anomalia.
+                                        El nombre de la crear usuario.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -95,10 +95,10 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>CURP</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Escribe la curp" {...field} />
+                                        <Input placeholder="Escribe la CURP" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre de la curp.
+                                        La CURP del usuario.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -111,10 +111,10 @@ const CrearUsuarioForm = () => {
                                 <FormItem>
                                     <FormLabel>RFC</FormLabel>
                                     <FormControl>
-                                        <Input  placeholder="Escribe la rfc" {...field} />
+                                        <Input  placeholder="Escribe la RFC" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre de la rfc.
+                                        El RFC del usuario.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -130,7 +130,7 @@ const CrearUsuarioForm = () => {
                                         <Input  placeholder="Escribe el correo electronico" {...field} />
                                     </FormControl>
                                     <FormDescription>
-                                        El nombre del correo electronico.
+                                        El correo electronico del usuario.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
