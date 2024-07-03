@@ -141,3 +141,6 @@ Crear CRUDS
     $role = Role::findByName('your-role-name', 'web');
     $role->givePermissionTo('Ver Anomalias');
     $role->revokePermissionTo($permission);
+
+    pasos para los permisos 
+    crear permisos en el seeder de permisos (PermissionsSeeder.php)
