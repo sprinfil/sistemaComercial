@@ -4,7 +4,7 @@ import InformacionGeneralForm from '../../../../components/Forms/InformacionGene
 const InformaciónGeneral = () => {
   return (
     <div>
-        <div className=' w-[370%] rounded-md border border-border h-[85vh] p-4 overflow-auto'>
+        <div className=' w-[365%] rounded-md border border-border h-[85vh] p-4 overflow-auto'>
         {/*Formulario*/}
         <InformacionGeneralForm/>
     </div>
