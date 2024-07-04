@@ -63,19 +63,22 @@ const Login = () => {
 
   return (
     <div className='h-[100vh] w-[100%] flex justify-center items-center'>
-      <div className=' flex gap-5  w-[700px] bg-background rounded-xl shadow-lg px-[30px] py-[20px] border border-border'>
-       
-        <div className='w-[50%] h-[400px]  flex items-center justify-center '>
+      <div className=' flex gap-5  w-[600px] bg-background rounded-xl shadow-lg px-[30px] py-[20px] border border-border'>
+
+        {/*
+               <div className='w-[50%] h-[400px]  flex items-center justify-center '>
           <img src={logo} alt="" className='w-[270px] h-[270px]' />
         </div>
-       
+       */}
 
 
-        <div className='w-[50%] h-full py-[15px] overflow-auto px-1'>
-          <div className="fixed">    {
-          loading && <Loader />
-        }</div>
-    
+
+
+        <div className='w-[100%] h-full py-[15px] overflow-auto px-1'>
+          <div className="">    {
+            loading && <Loader />
+          }</div>
+
 
           <div>
             <Error errors={errors} />
